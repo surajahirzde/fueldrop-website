@@ -1,0 +1,27 @@
+.fds-page { font-family: 'DM Sans', sans-serif; }
+.fds-hero { background: linear-gradient(135deg, #0a0f1e 0%, #0f2d1e 100%); padding: 80px 60px; text-align: center; }
+.fds-hero span { display: block; font-size: 12px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #22c55e; margin-bottom: 12px; }
+.fds-hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(32px, 4vw, 52px); font-weight: 800; color: white; margin-bottom: 16px; }
+.fds-hero h1 span { color: #22c55e; }
+.fds-hero p { color: #9ca3af; font-size: 16px; max-width: 520px; margin: 0 auto; }
+.fds-sol-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 32px; }
+.fds-sol-card { background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.07); transition: all 0.3s; }
+.fds-sol-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.12); }
+.fds-sol-img { height: 240px; overflow: hidden; }
+.fds-sol-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+.fds-sol-card:hover .fds-sol-img img { transform: scale(1.05); }
+.fds-sol-body { padding: 28px; }
+.fds-sol-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.fds-tag { background: #f0fdf4; color: #16a34a; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 50px; letter-spacing: 1px; text-transform: uppercase; }
+.fds-sol-icon { font-size: 32px; }
+.fds-sol-body h2 { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: #0f172a; margin-bottom: 10px; }
+.fds-sol-body p { font-size: 14px; color: #6b7280; line-height: 1.7; margin-bottom: 16px; }
+.fds-features { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 24px; }
+.fds-features li { font-size: 13px; color: #374151; display: flex; align-items: center; gap: 6px; }
+.fds-features li i { color: #16a34a; }
+.fds-sol-actions { display: flex; gap: 12px; }
+.fds-learn-btn { background: none; border: 2px solid #16a34a; color: #16a34a; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; padding: 10px 20px; border-radius: 50px; cursor: pointer; transition: all 0.2s; }
+.fds-learn-btn:hover { background: #f0fdf4; }
+.fds-order-btn { background: #16a34a; color: white; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; padding: 10px 20px; border-radius: 50px; border: none; cursor: pointer; transition: all 0.2s; }
+.fds-order-btn:hover { background: #15803d; box-shadow: 0 4px 16px rgba(22,163,74,0.3); }
+@media (max-width: 768px) { .fds-sol-grid { grid-template-columns: 1fr; } }

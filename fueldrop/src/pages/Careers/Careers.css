@@ -1,0 +1,33 @@
+.fdc-page { font-family: 'DM Sans', sans-serif; }
+.fdc-hero { background: linear-gradient(135deg, #0a0f1e 0%, #0f2d1e 100%); padding: 80px 60px; text-align: center; }
+.fdc-hero span { display: block; font-size: 12px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #22c55e; margin-bottom: 12px; }
+.fdc-hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(32px, 4vw, 52px); font-weight: 800; color: white; margin-bottom: 16px; }
+.fdc-hero h1 span { color: #22c55e; }
+.fdc-hero p { color: #9ca3af; font-size: 16px; max-width: 520px; margin: 0 auto; }
+.fdc-eyebrow { display: block; font-size: 12px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #16a34a; margin-bottom: 10px; }
+.fdc-green { color: #16a34a; }
+.fdc-section-header { text-align: center; margin-bottom: 44px; }
+.fdc-section-header h2 { font-family: 'Syne', sans-serif; font-size: clamp(26px, 3vw, 40px); font-weight: 800; color: #0f172a; }
+
+.fdc-list { display: flex; flex-direction: column; gap: 16px; max-width: 900px; margin: 0 auto 32px; }
+.fdc-job-card { background: white; border: 1px solid #e5e7eb; border-radius: 16px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 24px; transition: all 0.25s; }
+.fdc-job-card:hover { border-color: #16a34a; box-shadow: 0 4px 20px rgba(22,163,74,0.1); }
+.fdc-job-info h3 { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; color: #0f172a; margin-bottom: 8px; }
+.fdc-job-tags { display: flex; gap: 16px; flex-wrap: wrap; }
+.fdc-job-tags span { font-size: 13px; color: #6b7280; display: flex; align-items: center; gap: 6px; }
+.fdc-job-tags i { color: #16a34a; }
+.fdc-apply-btn { background: #16a34a; color: white; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; padding: 11px 24px; border-radius: 50px; border: none; cursor: pointer; transition: all 0.2s; white-space: nowrap; flex-shrink: 0; }
+.fdc-apply-btn:hover { background: #15803d; box-shadow: 0 4px 16px rgba(22,163,74,0.35); }
+.fdc-success { background: #f0fdf4; border: 1px solid #86efac; border-radius: 14px; padding: 20px 24px; display: flex; gap: 16px; align-items: flex-start; max-width: 900px; margin: 0 auto; }
+.fdc-success i { color: #16a34a; font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+.fdc-success strong { display: block; font-family: 'Syne', sans-serif; color: #15803d; margin-bottom: 4px; }
+.fdc-success p { font-size: 14px; color: #166534; }
+.fdc-success button { background: none; border: none; cursor: pointer; color: #6b7280; font-size: 18px; margin-left: auto; flex-shrink: 0; }
+
+.fdc-perks-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+.fdc-perk-card { background: white; border-radius: 16px; padding: 28px; box-shadow: 0 2px 12px rgba(0,0,0,0.05); transition: all 0.3s; }
+.fdc-perk-card:hover { transform: translateY(-4px); box-shadow: 0 10px 32px rgba(0,0,0,0.1); }
+.fdc-perk-icon { font-size: 36px; margin-bottom: 12px; }
+.fdc-perk-card h3 { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+.fdc-perk-card p { font-size: 14px; color: #6b7280; line-height: 1.6; }
+@media (max-width: 640px) { .fdc-job-card { flex-direction: column; align-items: flex-start; } .fdc-perks-grid { grid-template-columns: 1fr 1fr; } }
