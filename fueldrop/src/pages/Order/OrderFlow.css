@@ -395,7 +395,7 @@
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .of-layout { grid-template-columns: 1fr; }
-  .of-sidebar { position: static; }
+  .of-sidebar { position: static; } 
 }
 @media (max-width: 640px) {
   .of-progress__bar { gap: 2px; }
