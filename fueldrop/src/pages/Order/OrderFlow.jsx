@@ -3,14 +3,15 @@ import React, { useState } from 'react';
 import './OrderFlow.css';
 import AmountForm from "./Payment";
 
-const FUEL_PRICES = { Diesel: 87.71, Petrol: 96.72, LPG: 903, CNG: 75 };
-const FUEL_UNIT   = { Diesel: 'litre', Petrol: 'litre', LPG: 'cylinder', CNG: 'kg' };
-const FUEL_MIN    = { Diesel: 150, Petrol: 150, LPG: 10, CNG: 150 };
+// FUEL_PRICES ab prop se aayega (Home.jsx se)
+// const FUEL_PRICES = { Diesel: 87.71, Petrol: 96.72, LPG: 903, CNG: 75 };  // <-- REMOVED
+
+const FUEL_UNIT   = { Diesel: 'litre', Petrol: 'litre' };
+const FUEL_MIN    = { Diesel: 150, Petrol: 150 };
 const FUEL_META   = {
   Diesel: { icon: '🛢️', color: '#16a34a', bg: '#f0fdf4' },
   Petrol: { icon: '⛽', color: '#f97316', bg: '#fff7ed' },
-  LPG:    { icon: '🔥', color: '#2563eb', bg: '#eff6ff' },
-  CNG:    { icon: '💨', color: '#7c3aed', bg: '#f5f3ff' },
+ 
 };
 
 const STATES = ['Delhi','Haryana','Uttar Pradesh','Rajasthan','Maharashtra','Karnataka','Tamil Nadu','Gujarat','Punjab','Telangana','West Bengal','Madhya Pradesh'];
@@ -43,7 +44,12 @@ const STEPS = [
   { label: 'Payment', icon: '💳' },
 ];
 
-export default function OrderFlow({ navigate }) {
+// ✅ ONLY CHANGE: fuelPrices prop add kiya — baaki sab same hai
+export default function OrderFlow({ navigate, fuelPrices }) {
+
+  // ✅ prop se aaya FUEL_PRICES use karo, fallback as safety
+  const FUEL_PRICES = fuelPrices || { Diesel: 87.71, Petrol: 96.72 };
+
   const [step, setStep] = useState(0);
   const [fuelType, setFuelType] = useState('');
   const [vehicleType, setVehicleType] = useState('');

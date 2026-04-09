@@ -8,10 +8,11 @@ export default function Footer({ navigate }) {
         <div className="fdf-container">
           <div className="fdf-brand">
             <button className="fdf-logo" onClick={() => navigate('home')}>
-              <span className="fdf-logo-fuel">Fuel'sOn</span>
-              <span className="fdf-logo-drop">Wheel</span>
+              <span className="fdf-logo-fuel">OnCall</span>
+              <span className="fdf-logo-drop">Fuel</span>
             </button>
-            <p className="fdf-tagline">Doorstep Energy Delivery across India.<br/>Diesel, Petrol, LPG, CNG — at your door.</p>
+            <p className="fdf-tagline">Doorstep Energy Delivery across India.<br/>Diesel, Petrol — at your door.</p>
+            <p>GST : 06AAFCO0778H1ZC</p>
            
           </div>
 
@@ -20,6 +21,7 @@ export default function Footer({ navigate }) {
             <button onClick={() => navigate('about')}>About Us</button>
             <button onClick={() => navigate('team')}>Our Team</button>
             <button onClick={() => navigate('careers')}>Careers</button>
+        
             <button onClick={() => navigate('contact')}>Contact Us</button>
           </div>
 
@@ -37,13 +39,14 @@ export default function Footer({ navigate }) {
             <button onClick={() => navigate('awards')}>Awards & Recognition</button>
             <a href="#">Privacy Policy</a>
             <a href="#">Terms & Conditions</a>
+            <a href="#">Refund Policy</a>
           </div>
 
           <div className="fdf-contact-col">
             <h4>Quick Contact</h4>
-            <p><i className="fa fa-envelope"></i> support@Fuel'sOnWheel.in</p>
-            <p><i className="fa fa-phone"></i> +91-8088994444</p>
-            <p><i className="fa fa-map-marker-alt"></i> Tower B, Quattro Towers,<br/>Udyog Vihar Phase 4,<br/>Gurugram, Haryana 122016</p>
+            <p><i className="fa fa-envelope"></i> support@oncallfuel.com</p>
+            <p><i className="fa fa-phone"></i> +91-9211336186</p>
+            <p><i className="fa fa-map-marker-alt"></i> SCO-4, Sector-39 ,Dayal Bagh Market<br/>Faridabad,<br/>Haryana - 121009</p>
            
           </div>
         </div>
@@ -51,7 +54,7 @@ export default function Footer({ navigate }) {
 
       <div className="fdf-bottom">
         <div className="fdf-container fdf-bottom-inner">
-          <p>© 2024 Fuel'sOnWheel (Treis Solutions Pvt. Ltd.) All Rights Reserved.</p>
+          <p>©  OnCallFuel(Treis Solutions Pvt. Ltd.) All Rights Reserved.</p>
           <div className="fdf-bottom-links">
             <a href="#">Privacy Policy</a>
             <a href="#">Terms & Conditions</a>

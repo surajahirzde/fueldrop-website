@@ -228,3 +228,31 @@
   .fdh-badge { display: none; }
   .fdh-checklist { grid-template-columns: 1fr; }
 }
+/* ─────────────────────────────────────────────────────
+   ADD THESE 2 RULES AT THE BOTTOM OF YOUR Home.css
+   (existing rules untouched — nothing else changes)
+   ───────────────────────────────────────────────────── */
+
+/* Two-column layout: fuel cards left, price widget right */
+.fdh-fuels-layout {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 28px;
+  align-items: start;
+}
+
+/* Sticky price widget so it stays visible while scrolling cards */
+.fdh-price-widget-wrap {
+  position: sticky;
+  top: 20px;
+}
+
+/* Responsive: stack on smaller screens */
+@media (max-width: 1024px) {
+  .fdh-fuels-layout {
+    grid-template-columns: 1fr;
+  }
+  .fdh-price-widget-wrap {
+    position: static;
+  }
+}

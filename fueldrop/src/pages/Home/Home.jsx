@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Home.css';
+import FuelPriceWidget from '../Home/Fuelpricewidget'; // ← only addition
 
 const SLIDES = [
   {
@@ -57,25 +58,25 @@ const STATS = [
 ];
 
 const CLIENTS = [
-  { name: 'BigBasket', logo: 'https://logo.clearbit.com/bigbasket.com' },
-  { name: 'Indus Towers', logo: 'https://logo.clearbit.com/industowers.com' },
-  { name: 'Makemytrip', logo: 'https://logo.clearbit.com/makemytrip.com' },
-  { name: 'Pepsi', logo: 'https://logo.clearbit.com/pepsi.com' },
-  { name: 'Swiggy', logo: 'https://logo.clearbit.com/swiggy.com' },
-  { name: 'Zomato', logo: 'https://logo.clearbit.com/zomato.com' },
+  { name: 'Ravi Fuel Station', logo: 'https://logo.clearbit.com/bigbasket.com' },
+  { name: 'Highway Fuel Point', logo: 'https://logo.clearbit.com/industowers.com' },
+  { name: 'Om Sai Petrol Pump', logo: 'https://logo.clearbit.com/makemytrip.com' },
+  { name: 'Express Fuel Service', logo: 'https://logo.clearbit.com/pepsi.com' },
+  { name: 'Shree Balaji Fuel Hub', logo: 'https://logo.clearbit.com/swiggy.com' },
+  { name: 'Urban Fuel Corner', logo: 'https://logo.clearbit.com/zomato.com' },
 ];
 
 const TESTIMONIALS = [
   {
-    name: 'Taurus Sarovar Portico, New Delhi',
+    name: 'Aman Transport Services, Gurugram',
     text: 'FuelDrop team is doing excellent work. As soon as we place an order, we get the delivery in 4 hours. Highly recommended!',
   },
   {
-    name: 'Park Plaza, Gurgaon',
+    name: 'Satyam Auto Service, Faridabad',
     text: 'Excellent fuel delivery service. Trusted brand with high-accuracy pump machines. Thank you for doorstep diesel delivery!',
   },
   {
-    name: 'Varun Beverages Ltd.',
+    name: 'Nitin Motors, Delhi NCR.',
     text: 'Reliable, on-time, cashless. FuelDrop has transformed how we manage diesel procurement at all our plants.',
   },
 ];
@@ -113,19 +114,10 @@ export default function Home({ navigate }) {
             </button>
           </div>
         </div>
-        {/* Slide Dots */}
         <div className="fdh-dots">
           {SLIDES.map((_, i) => (
             <button key={i} className={`fdh-dot${i === slide ? ' fdh-dot-active' : ''}`} onClick={() => setSlide(i)} />
           ))}
-        </div>
-        {/* Tanker Badge */}
-        <div className="fdh-badge">
-          <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=300&q=80" alt="tanker" />
-          <div>
-            <strong>Live Tracking</strong>
-            <span>Your fuel is on the way</span>
-          </div>
         </div>
       </section>
 
@@ -141,31 +133,39 @@ export default function Home({ navigate }) {
         </div>
       </section>
 
-      {/* What We Deliver */}
+      {/* ─── What We Deliver  ─── ONLY THIS SECTION CHANGED ─── */}
       <section className="fdh-fuels fd-section">
         <div className="fd-container">
           <div className="fdh-section-header">
             <span className="fdh-eyebrow">What We Deliver</span>
             <h2>All Types of Energy, <span className="fdh-green">One Platform</span></h2>
-            <p>From diesel to petrol, LPG to CNG — FuelDrop is your single source for all energy needs, delivered safely and on time.</p>
+            <p>From diesel to petrol— FuelDrop is your single source for all energy needs, delivered safely and on time.</p>
           </div>
-          <div className="fdh-fuel-grid">
-            {[
-              { icon: '🛢️', label: 'Diesel', price: '₹87.71/L', color: '#16a34a' },
-              { icon: '⛽', label: 'Petrol', price: '₹96.72/L', color: '#f97316' },
-              { icon: '🔥', label: 'LPG Gas', price: '₹903/cyl', color: '#3b82f6' },
-              { icon: '💨', label: 'CNG', price: '₹75/kg', color: '#8b5cf6' },
-            ].map((f, i) => (
-              <button key={i} className="fdh-fuel-card" onClick={() => navigate('order')}>
-                <div className="fdh-fuel-icon" style={{ background: f.color + '18', color: f.color }}>{f.icon}</div>
-                <h3>{f.label}</h3>
-                <p className="fdh-fuel-price">From <strong style={{ color: f.color }}>{f.price}</strong></p>
-                <span className="fdh-fuel-cta">Order Now →</span>
-              </button>
-            ))}
+
+          {/* NEW: two-col layout — fuel cards left, price widget right */}
+          <div className="fdh-fuels-layout">
+            <div className="fdh-fuel-grid">
+              {[
+                { icon: '🛢️', label: 'Diesel', price: '₹87.71/L', color: '#16a34a' },
+                { icon: '⛽', label: 'Petrol', price: '₹96.72/L', color: '#f97316' },
+              ].map((f, i) => (
+                <button key={i} className="fdh-fuel-card" onClick={() => navigate('order')}>
+                  <div className="fdh-fuel-icon" style={{ background: f.color + '18', color: f.color }}>{f.icon}</div>
+                  <h3>{f.label}</h3>
+                  <p className="fdh-fuel-price">From <strong style={{ color: f.color }}>{f.price}</strong></p>
+                  <span className="fdh-fuel-cta">Order Now →</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Price widget — right side */}
+            <div className="fdh-price-widget-wrap">
+              <FuelPriceWidget />
+            </div>
           </div>
         </div>
       </section>
+      {/* ─── END CHANGED SECTION ─── */}
 
       {/* Solutions */}
       <section className="fdh-solutions fd-section fd-section-light">
@@ -197,7 +197,7 @@ export default function Home({ navigate }) {
       <section className="fdh-why fd-section">
         <div className="fd-container fdh-why-inner">
           <div className="fdh-why-img">
-            <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=700&q=80" alt="delivery" />
+            <img src="https://images.unsplash.com/photo-1628157345105-8bb751c27505?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGZ1ZWwlMjBkZWxpdmVyeSUyMGJveXxlbnwwfHwwfHx8MA%3D%3D" alt="delivery" />
             <div className="fdh-why-badge-card">
               <span className="fdh-why-badge-num">55K+</span>
               <span>Happy Customers</span>
@@ -208,7 +208,7 @@ export default function Home({ navigate }) {
             <h2>Bharat's Most Trusted <span className="fdh-green">Doorstep Diesel</span> Delivery Service</h2>
             <p>Searching for a faster, more efficient way to refuel? Our mission is to provide a seamless and secure experience, delivering precise quality and quantity of diesel right at your fingertips — powered by IoT and Cloud technology.</p>
             <ul className="fdh-checklist">
-              {['Easy-to-use App', 'Championing On-time Deliveries', 'Save Time & Money', 'Cashless Transactions', 'ISO Certified Quality Fuel', 'Real-time GPS Tracking'].map((item, i) => (
+              {['Easy-to-use App', 'Championing On-time Deliveries', 'Save Time & Money', 'Cashless Transactions', 'Real-time GPS Tracking'].map((item, i) => (
                 <li key={i}><i className="fa fa-circle-check"></i> {item}</li>
               ))}
             </ul>
@@ -222,7 +222,7 @@ export default function Home({ navigate }) {
         <div className="fd-container">
           <div className="fdh-section-header fdh-section-header-light">
             <span className="fdh-eyebrow fdh-eyebrow-light">Our Approach</span>
-            <h2>Five-Axis Technology <span className="fdh-green">Centred Approach</span></h2>
+            <h2>Chagans Technologies limited <span className="fdh-green">Centred Approach</span></h2>
             <p style={{ color: '#9ca3af' }}>Technology at the core, connecting convenience, cashless transactions, quality & safety.</p>
           </div>
           <div className="fdh-tech-grid">
@@ -266,7 +266,7 @@ export default function Home({ navigate }) {
         <div className="fd-container">
           <div className="fdh-section-header">
             <span className="fdh-eyebrow">What They Say</span>
-            <h2>Customer <span className="fdh-green">Testimonials</span></h2>
+            <h2>Customer <span className="fdh-green">Feedback</span></h2>
           </div>
           <div className="fdh-test-grid">
             <div className="fdh-test-stat">
@@ -290,13 +290,8 @@ export default function Home({ navigate }) {
       <section className="fdh-app fd-section fd-section-dark">
         <div className="fd-container fdh-app-inner">
           <div className="fdh-app-text">
-            <span className="fdh-eyebrow fdh-eyebrow-light">Download Now</span>
             <h2>Upgrade Your Refueling Experience with <span className="fdh-green">FuelDrop!</span></h2>
             <p style={{ color: '#9ca3af' }}>Order diesel at your doorstep. Smooth, smart, and secure procurement at your fingertips.</p>
-            <div className="fdh-app-btns">
-              <a href="#" className="fdh-app-store-btn"><i className="fab fa-apple"></i> Download on App Store</a>
-              <a href="#" className="fdh-app-store-btn"><i className="fab fa-google-play"></i> Get it on Google Play</a>
-            </div>
           </div>
           <div className="fdh-app-phones">
             <img src="https://images.unsplash.com/photo-1556155092-490a1ba16284?w=400&q=80" alt="app" className="fdh-phone-img" />
@@ -310,7 +305,7 @@ export default function Home({ navigate }) {
           <h2>Ready to Order <span className="fdh-green">Fuel Now?</span></h2>
           <p>Minimum 150 litres. Delivered to your door within hours.</p>
           <button className="fdh-btn-primary fdh-btn-large" onClick={() => navigate('order')}>
-            <i className="fa fa-bolt"></i> Start Your Order
+            <i className="fa fa-bolt"></i> Book Fuel Now
           </button>
         </div>
       </section>

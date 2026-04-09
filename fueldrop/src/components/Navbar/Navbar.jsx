@@ -44,8 +44,8 @@ export default function Navbar({ navigate, currentPage }) {
       <div className="fdn-container">
         {/* Logo */}
         <button className="fdn-logo" onClick={() => navigate('home')}>
-          <span className="fdn-logo-fuel">Fuel'sOn</span>
-          <span className="fdn-logo-drop">Wheel</span>
+          <span className="fdn-logo-fuel">OnCall</span>
+          <span className="fdn-logo-drop">Fuel</span>
           <span className="fdn-logo-tag">Doorstep Energy</span>
         </button>
 
