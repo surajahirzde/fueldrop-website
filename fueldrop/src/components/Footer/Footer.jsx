@@ -37,9 +37,9 @@ export default function Footer({ navigate }) {
             <h4>Resources</h4>
             <button onClick={() => navigate('blog')}>Our Blog</button>
             <button onClick={() => navigate('awards')}>Awards & Recognition</button>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms & Conditions</a>
-            <a href="#">Refund Policy</a>
+            <button onClick={() => navigate('privacy')}>Privacy Policy</button>
+            <button onClick={() => navigate('terms')}>Terms & Conditions</button>
+            <button onClick={() => navigate('refund')}>Refund Policy</button>
           </div>
 
           <div className="fdf-contact-col">
@@ -56,9 +56,9 @@ export default function Footer({ navigate }) {
         <div className="fdf-container fdf-bottom-inner">
           <p>©  OnCallFuel(Treis Solutions Pvt. Ltd.) All Rights Reserved.</p>
           <div className="fdf-bottom-links">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms & Conditions</a>
-            <a href="#">Sitemap</a>
+            <button onClick={() => navigate('privacy')}>Privacy Policy</button>
+            <button onClick={() => navigate('terms')}>Terms & Conditions</button>
+            <button onClick={() => navigate('refund')}>Refund Policy</button>
           </div>
         </div>
       </div>

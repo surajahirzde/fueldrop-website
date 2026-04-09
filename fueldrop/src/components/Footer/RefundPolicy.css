@@ -1,0 +1,16 @@
+/* RefundPolicy.css */
+@import './PolicyPages.css';
+
+/* Refund-specific accent: orange */
+.ocf-page .ocf-toc-item--active {
+  background: #fff7ed;
+  border-left-color: #f97316;
+  color: #c2410c;
+}
+.ocf-page .ocf-list-dot { background: #f97316; }
+.ocf-page .ocf-card:hover {
+  border-color: #f97316;
+  box-shadow: 0 4px 16px rgba(249,115,22,0.1);
+}
+.ocf-page .ocf-step-num { background: #f97316; }
+.ocf-page .ocf-table thead tr { background: #0c0f1a; }

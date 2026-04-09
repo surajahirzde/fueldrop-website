@@ -1,0 +1,18 @@
+/* PrivacyPolicy.css */
+@import './PolicyPages.css';
+
+/* Privacy-specific accent: green */
+.ocf-page--privacy .ocf-toc-item--active {
+  background: #f0fdf4;
+  border-left-color: #16a34a;
+  color: #15803d;
+}
+.ocf-page--privacy .ocf-list-dot--green { background: #16a34a; }
+.ocf-page--privacy .ocf-card--green:hover {
+  border-color: #16a34a;
+  box-shadow: 0 4px 16px rgba(22,163,74,0.1);
+}
+.ocf-page--privacy .ocf-step-num--green { background: #16a34a; }
+.ocf-page--privacy .ocf-table thead tr { background: #0c1a0f; }
+/* Override list dot for privacy */
+.ocf-page--privacy .ocf-list-dot { background: #16a34a; }

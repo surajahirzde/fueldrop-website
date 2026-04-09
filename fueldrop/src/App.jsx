@@ -15,6 +15,9 @@ import Blog from './pages/Blog/Blog';
 import Awards from './pages/Awards/Awards';
 import Contact from './pages/Contact/Contact';
 import OrderFlow from './pages/Order/OrderFlow';
+import RefundPolicy from './components/Footer/Refund';
+import TermsConditions from './components/Footer/Terms';
+import PrivacyPolicy from './components/Footer/Privacy';
 
 export default function App() {
   const [page, setPage] = useState('home');
@@ -39,6 +42,12 @@ export default function App() {
       case 'awards': return <Awards navigate={navigate} />;
       case 'contact': return <Contact navigate={navigate} />;
       case 'order': return <OrderFlow navigate={navigate} />;
+case 'privacy': return <PrivacyPolicy navigate={navigate} />;
+case 'terms': return <TermsConditions navigate={navigate} />;
+case 'refund': return <RefundPolicy navigate={navigate} />;
+
+
+
       default: return <Home navigate={navigate} />;
     }
   };

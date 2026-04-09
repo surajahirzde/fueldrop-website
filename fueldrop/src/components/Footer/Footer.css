@@ -50,6 +50,10 @@
   border-top: 1px solid rgba(255,255,255,0.08);
   padding: 20px 0;
 }
+
+.fdf-bottom .fdf-bottom-links{
+  color: white;
+}
 .fdf-bottom-inner {
   display: flex; align-items: center; justify-content: space-between;
   grid-template-columns: unset;

@@ -1,0 +1,18 @@
+/* TermsConditions.css */
+@import './PolicyPages.css';
+
+/* Terms-specific accent: indigo/blue */
+.ocf-page--terms .ocf-toc-item--active {
+  background: #eff6ff;
+  border-left-color: #1d4ed8;
+  color: #1d4ed8;
+}
+.ocf-page--terms .ocf-list-dot--blue { background: #1d4ed8; }
+.ocf-page--terms .ocf-card--blue:hover {
+  border-color: #1d4ed8;
+  box-shadow: 0 4px 16px rgba(29,78,216,0.1);
+}
+.ocf-page--terms .ocf-step-num { background: #1d4ed8; }
+.ocf-page--terms .ocf-table thead tr { background: #0f172a; }
+/* Override list dot for terms */
+.ocf-page--terms .ocf-list-dot { background: #1d4ed8; }
