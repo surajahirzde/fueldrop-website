@@ -80,8 +80,7 @@ export default function AmountForm({ rentData, mobileNo, typeSet, amountInt, onS
       }
     } catch (err) {
       console.error("Payment Error:", err);
-
-      let errorMsg = err.message || "An error occurred while processing payment";
+      let errorMsg = "Network error. Please try again.";
       setError(errorMsg);
       if (onError) onError(errorMsg);
     } finally {
