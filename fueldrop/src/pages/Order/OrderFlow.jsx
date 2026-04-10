@@ -237,7 +237,7 @@ export default function OrderFlow({ navigate, fuelPrices }) {
 
       {qty >= FUEL_MIN[fuelType] && (
         <div className="of-price-box">
-          <div className="of-price-box__row"><span>{qty} × ₹{price}</span><span>₹{subtotal.toFixed(2)}</span></div>
+          <div className="of-price-box__row"><span>{qty} × ₹{price} Including Charges</span><span>₹{subtotal.toFixed(2)} </span></div>
           <div className="of-price-box__row"><span>Delivery fee</span><span style={{ color: deliveryFee === 0 ? '#16a34a' : undefined }}>{deliveryFee === 0 ? 'FREE' : `₹${deliveryFee}`}</span></div>
           <div className="of-price-box__row"><span>18% Vat ( inc all taxes )</span><span>₹{gst}</span></div>
           <div className="of-price-box__total"><span>Estimated Total</span><strong>₹{total.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</strong></div>
