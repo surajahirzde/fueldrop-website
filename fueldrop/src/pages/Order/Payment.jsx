@@ -17,7 +17,7 @@ export default function AmountForm({ rentData, mobileNo, typeSet, amountInt, onS
       if (onError) onError(errorMsg);
       return;
     }
-    
+
     if (!mobile || mobile.length !== 10) {
       const errorMsg = "Valid 10-digit mobile number required";
       setError(errorMsg);
@@ -50,16 +50,25 @@ export default function AmountForm({ rentData, mobileNo, typeSet, amountInt, onS
         // ✅ CRITICAL FIX: Open payment link in new tab
         const paymentLink = data.data.paymentLink?.linkUrl;
         const transactionId = data.data.transactionId;
-        
+
         if (paymentLink && transactionId) {
           const fullPaymentUrl = paymentLink + transactionId;
           console.log("Opening payment gateway:", fullPaymentUrl);
-          
+
           // ✅ Open Vegaah gateway in new tab
-          window.open(fullPaymentUrl, "_blank");
-          
+          // Mobile detect kar
+          const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+          if (isMobile) {
+            // Mobile me same tab me redirect kar
+            window.location.href = fullPaymentUrl;
+          } else {
+            // Desktop me new tab me khol
+            window.open(fullPaymentUrl, "_blank");
+          }
+
           setIsRedirecting(true);
-          
+
           // ✅ Call success callback after opening gateway
           if (onSuccess) {
             onSuccess({
@@ -129,15 +138,15 @@ export default function AmountForm({ rentData, mobileNo, typeSet, amountInt, onS
 
           {error && (
             <div className="fuel-error-message">
-              <span>⚠️</span> 
+              <span>⚠️</span>
               <div style={{ flex: 1 }}>{error}</div>
-              <button 
-                onClick={initiatePayment} 
-                style={{ 
-                  background: '#dc2626', 
-                  color: 'white', 
-                  border: 'none', 
-                  padding: '4px 12px', 
+              <button
+                onClick={initiatePayment}
+                style={{
+                  background: '#dc2626',
+                  color: 'white',
+                  border: 'none',
+                  padding: '4px 12px',
                   borderRadius: '20px',
                   cursor: 'pointer',
                   fontSize: '12px'
@@ -148,7 +157,7 @@ export default function AmountForm({ rentData, mobileNo, typeSet, amountInt, onS
             </div>
           )}
 
-          <button 
+          <button
             className="fuel-pay-button"
             onClick={initiatePayment}
             disabled={isLoading || !amount || mobile.length !== 10}
@@ -172,12 +181,12 @@ export default function AmountForm({ rentData, mobileNo, typeSet, amountInt, onS
           <div className="fuel-spinner"></div>
           <p className="fuel-redirect-text">Payment gateway opened in new tab!</p>
           <p className="fuel-redirect-note">Please complete payment in the new window.</p>
-          <button 
+          <button
             onClick={() => {
               setIsRedirecting(false);
               setError("");
             }}
-            style={{ 
+            style={{
               marginTop: '20px',
               padding: '8px 16px',
               background: '#16a34a',
