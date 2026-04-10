@@ -18,7 +18,7 @@ export default function About({ navigate }) {
           <div className="fda-mission-text">
             <span className="fda-eyebrow">Who We Are</span>
             <h2>Revolutionising the Way <span className="fda-green">India Fuels</span></h2>
-            <p>FuelDrop (formerly Treis Solutions Pvt. Ltd.) was founded with a singular mission — to make fuel procurement as simple as ordering food online. We are India's most trusted IoT and Cloud-enabled doorstep fuel delivery company.</p>
+            <p>OnCallFuel (formerly Treis Solutions Pvt. Ltd.) was founded with a singular mission — to make fuel procurement as simple as ordering food online. We are India's most trusted IoT and Cloud-enabled doorstep fuel delivery company.</p>
             <p>Operating across 20+ cities, we deliver diesel, petrol, LPG and CNG directly to factories, construction sites, hospitals, hotels, apartments and households — safely, precisely, and on time.</p>
             <div className="fda-highlights">
               {[['20+', 'Cities'], ['55K+', 'Customers'], ['500+', 'Daily Orders'], ['ISO', 'Certified']].map(([n, l]) => (
@@ -27,7 +27,7 @@ export default function About({ navigate }) {
             </div>
           </div>
           <div className="fda-mission-img">
-            <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=700&q=80" alt="mission" />
+            <img src="https://plus.unsplash.com/premium_photo-1661315472410-206cdbd926b3?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTc1fHxmdWVsJTIwZGVsaXZlcnklMjBib3l8ZW58MHx8MHx8fDA%3D" alt="mission" />
           </div>
         </div>
       </section>
@@ -65,7 +65,7 @@ export default function About({ navigate }) {
           </div>
           <div className="fda-timeline">
             {[
-              { year: '2017', event: 'FuelDrop founded in Gurugram with a single fuel tanker.' },
+              { year: '2017', event: 'OnCallFuel founded in Gurugram with a single fuel tanker.' },
               { year: '2018', event: 'Expanded to 5 cities; launched our first mobile app.' },
               { year: '2019', event: 'Onboarded 1,000+ B2B customers including Indus Towers.' },
               { year: '2021', event: 'Launched DOT (Diesel on Tap) and Smart Tank products.' },

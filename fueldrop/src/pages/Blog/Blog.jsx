@@ -16,7 +16,7 @@ export default function Blog() {
     <div className="fdb-page">
       <div className="fdb-hero">
         <span>News & Insights</span>
-        <h1>The FuelDrop <span>Blog</span></h1>
+        <h1>The OnCallFuel <span>Blog</span></h1>
         <p>Industry insights, fuel market updates, and energy management guides.</p>
       </div>
       <section className="fdb-content fd-section">

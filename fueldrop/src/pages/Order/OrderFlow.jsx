@@ -7,7 +7,7 @@ import AmountForm from "./Payment";
 // const FUEL_PRICES = { Diesel: 87.71, Petrol: 96.72, LPG: 903, CNG: 75 };  // <-- REMOVED
 
 const FUEL_UNIT   = { Diesel: 'litre', Petrol: 'litre' };
-const FUEL_MIN    = { Diesel: 150, Petrol: 150 };
+const FUEL_MIN    = { Diesel: 100, Petrol: 100 };
 const FUEL_META   = {
   Diesel: { icon: '🛢️', color: '#16a34a', bg: '#f0fdf4' },
   Petrol: { icon: '⛽', color: '#f97316', bg: '#fff7ed' },
@@ -68,8 +68,8 @@ export default function OrderFlow({ navigate, fuelPrices }) {
   const price    = fuelType ? FUEL_PRICES[fuelType] : 0;
   const qty      = parseFloat(quantity) || 0;
   const subtotal = qty * price;
-  const deliveryFee = qty >= 500 ? 0 : 299;
-  const gst   = parseFloat((subtotal * 0.18).toFixed(2));
+  const deliveryFee = qty >= 500 ? 0 : 1999;
+  const gst   = parseFloat((deliveryFee * 0.18).toFixed(2));
   const total = parseFloat((subtotal + deliveryFee + gst).toFixed(2));
 
   const today = new Date();
@@ -239,7 +239,7 @@ export default function OrderFlow({ navigate, fuelPrices }) {
         <div className="of-price-box">
           <div className="of-price-box__row"><span>{qty} × ₹{price}</span><span>₹{subtotal.toFixed(2)}</span></div>
           <div className="of-price-box__row"><span>Delivery fee</span><span style={{ color: deliveryFee === 0 ? '#16a34a' : undefined }}>{deliveryFee === 0 ? 'FREE' : `₹${deliveryFee}`}</span></div>
-          <div className="of-price-box__row"><span>18% GST</span><span>₹{gst}</span></div>
+          <div className="of-price-box__row"><span>18% Vat ( inc all taxes )</span><span>₹{gst}</span></div>
           <div className="of-price-box__total"><span>Estimated Total</span><strong>₹{total.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</strong></div>
         </div>
       )}

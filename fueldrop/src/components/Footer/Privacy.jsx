@@ -2,293 +2,173 @@
 import React, { useState } from 'react';
 import './PrivacyPolicy.css';
 
-const LAST_UPDATED = 'April 1, 2025';
-const EFFECTIVE_DATE = 'April 1, 2025';
-
 const SECTIONS = [
   {
     id: 'intro',
-    icon: '🔒',
+    emoji: '🔒',
     title: 'Introduction',
-    content: [
-      { type: 'highlight', variant: 'green', icon: '🛡️', text: 'OnCallFuel is committed to protecting your personal information. This Privacy Policy explains what data we collect, why we collect it, how we use it, and your rights over your data.' },
-      { type: 'para', text: 'This Privacy Policy applies to all users of the OnCallFuel platform — including individuals, households, businesses, hotels, and corporate customers — who access our services through the website (www.oncallfuel.in), mobile application, or any other channel operated by Chagans Technologies Limited.' },
-      { type: 'para', text: 'We comply with the Information Technology Act, 2000, the Information Technology (Reasonable Security Practices and Procedures and Sensitive Personal Data or Information) Rules, 2011, and applicable provisions of the Digital Personal Data Protection Act, 2023 (DPDPA).' },
+    points: [
+      'This Privacy Policy applies to all users of OnCallFuel —  SCO-4, Dayal Bagh, Sector-39, Faridabad – 121009, Haryana.',
+      'By using our platform (www.oncallfuel.in), mobile app, or any channel, you agree to this policy.',
+      'We comply with the Information Technology Act, 2000, IT (SPDI) Rules 2011, and the Digital Personal Data Protection Act, 2023.',
     ],
   },
   {
-    id: 'data-collected',
-    icon: '📋',
+    id: 'collect',
+    emoji: '📋',
     title: 'Data We Collect',
-    content: [
-      { type: 'heading', text: 'Information You Provide' },
-      { type: 'cards', items: [
-        { icon: '👤', title: 'Identity Data', desc: 'Full name, date of birth (for age verification), government ID (for bulk orders above ₹25,000).' },
-        { icon: '📞', title: 'Contact Data', desc: 'Mobile number, email address, WhatsApp number, registered address, and delivery addresses.' },
-        { icon: '🚗', title: 'Vehicle Data', desc: 'Vehicle registration number, make, model, fuel type — provided voluntarily for emergency delivery requests.' },
-        { icon: '💳', title: 'Payment Data', desc: 'UPI ID, last 4 digits of card (tokenized), bank name. Full card/account details are never stored by OnCallFuel.' },
-        { icon: '🏢', title: 'Business Data', desc: 'GST number, company name, business address, authorized contact details for B2B and corporate accounts.' },
-        { icon: '💬', title: 'Communication Data', desc: 'Messages sent via our chat support, email inquiries, call recordings (where legally required), and feedback.' },
-      ]},
-      { type: 'heading', text: 'Information Collected Automatically' },
-      { type: 'list', items: [
-        'Device identifiers: IP address, device type, OS version, app version, browser type',
-        'Location data: GPS coordinates (with permission) at time of order placement for delivery routing',
-        'Usage data: pages viewed, features used, session duration, click patterns on the Platform',
-        'Transaction logs: order history, delivery timestamps, cancellation records',
-        'Cookies and similar tracking technologies (see our Cookie Policy below)',
-      ]},
+    points: [
+      'Identity & Contact: Name, mobile number, email address, and delivery addresses.',
+      'Vehicle Info: Registration number, fuel type — provided voluntarily for delivery requests.',
+      'Payment: UPI ID, last 4 digits of card (tokenized). Full card details are never stored.',
+      'Usage Data: IP address, device type, GPS location (with permission), and order history.',
+      'Business: GST number, company name for B2B and corporate accounts.',
     ],
   },
   {
-    id: 'how-we-use',
-    icon: '🎯',
+    id: 'use',
+    emoji: '🎯',
     title: 'How We Use Your Data',
-    content: [
-      { type: 'table', headers: ['Purpose', 'Data Used', 'Legal Basis'], rows: [
-        ['Processing and fulfilling fuel delivery orders', 'Name, address, contact, payment', 'Contract performance'],
-        ['Verifying identity and preventing fraud', 'ID, device data, transaction history', 'Legal obligation / Legitimate interest'],
-        ['Sending order updates and delivery notifications', 'Mobile number, email', 'Contract performance'],
-        ['Customer support and dispute resolution', 'All order-related data', 'Contract performance / Legal obligation'],
-        ['Improving Platform features and UX', 'Usage data, anonymized feedback', 'Legitimate interest'],
-        ['Sending promotional offers (with consent)', 'Email, mobile number', 'Consent (opt-in only)'],
-        ['Compliance with legal and regulatory requirements', 'Identity, transaction data', 'Legal obligation'],
-        ['Generating anonymized analytics and business reports', 'Aggregated usage data', 'Legitimate interest'],
-      ]},
+    points: [
+      'To process and fulfil your fuel delivery orders.',
+      'To send order updates, OTPs, and delivery notifications.',
+      'To prevent fraud and verify identity for high-value transactions.',
+      'To improve platform features using anonymized usage data.',
+      'To send promotional offers — only with your explicit opt-in consent.',
     ],
   },
   {
-    id: 'sharing',
-    icon: '🤝',
-    title: 'Data Sharing & Disclosure',
-    content: [
-      { type: 'para', text: 'OnCallFuel does not sell your personal data. We share your data only in the following limited circumstances:' },
-      { type: 'list', items: [
-        'Delivery Partners: Name, address, and mobile number shared with our field delivery personnel to fulfil your order',
-        'Payment Processors: Transaction details shared with PCI-DSS compliant payment gateways (Razorpay, PayU, etc.)',
-        'SMS/Communication Providers: Mobile number shared with licensed telecom service providers for OTP and notifications',
-        'Cloud Infrastructure Providers: Data stored on AWS/Google Cloud servers located in India',
-        'Analytics Partners: Anonymized, aggregated usage data only — no personally identifiable information',
-        'Law Enforcement: When required by court order, subpoena, or applicable Indian law',
-        'Business Transfers: In the event of merger, acquisition, or asset sale, with appropriate confidentiality protections',
-      ]},
-      { type: 'highlight', variant: 'green', icon: '✅', text: 'We never share your personal data with advertisers, data brokers, or third-party marketing companies without your explicit prior consent.' },
-    ],
-  },
-  {
-    id: 'retention',
-    icon: '🗃️',
-    title: 'Data Retention',
-    content: [
-      { type: 'table', headers: ['Data Type', 'Retention Period', 'Reason'], rows: [
-        ['Order and transaction records', '7 years', 'Tax and accounting compliance'],
-        ['Account profile data', 'Duration of account + 2 years', 'Legal and dispute purposes'],
-        ['Delivery GPS logs', '90 days', 'Dispute resolution'],
-        ['Payment tokens', '5 years', 'Financial audit requirements'],
-        ['Customer support communications', '2 years from last interaction', 'Quality and legal purposes'],
-        ['Marketing preferences (opt-in/out)', 'Until withdrawn', 'Consent management'],
-        ['App usage and analytics data', '1 year (anonymized)', 'Product improvement'],
-      ]},
-      { type: 'para', text: 'After the applicable retention period, data is securely deleted or anonymized. You may request early deletion of your data (see "Your Rights" section), subject to legal retention obligations.' },
+    id: 'share',
+    emoji: '🤝',
+    title: 'Data Sharing',
+    points: [
+      'Delivery partners receive your name, address, and phone number to fulfil orders.',
+  
+      'Data is stored on AWS / Google Cloud servers located in India.',
+      'We share data with law enforcement only when required by court order or Indian law.',
+      'We never sell your data to advertisers or third-party marketing companies.',
     ],
   },
   {
     id: 'security',
-    icon: '🛡️',
-    title: 'Data Security',
-    content: [
-      { type: 'para', text: 'We implement industry-standard technical and organisational measures to protect your personal data:' },
-      { type: 'cards', items: [
-        { icon: '🔐', title: 'Encryption', desc: 'All data in transit is encrypted using TLS 1.2+. Sensitive data at rest is encrypted using AES-256.' },
-        { icon: '🏗️', title: 'Infrastructure', desc: 'Hosted on ISO 27001 certified cloud infrastructure with automated threat detection and DDoS protection.' },
-        { icon: '👥', title: 'Access Control', desc: 'Role-based access controls ensure staff only access data necessary for their job functions.' },
-        { icon: '🔍', title: 'Audits', desc: 'Regular third-party security audits, penetration testing, and vulnerability assessments.' },
-        { icon: '💳', title: 'Payment Security', desc: 'Payment processing via PCI-DSS Level 1 compliant gateways. OnCallFuel never stores full card details.' },
-        { icon: '📱', title: 'App Security', desc: 'Mobile app uses certificate pinning, biometric authentication options, and secure session management.' },
-      ]},
-      { type: 'highlight', variant: 'green', icon: '🚨', text: 'In the event of a data breach affecting your personal information, OnCallFuel will notify you within 72 hours as required by applicable law, along with the steps we are taking to mitigate the incident.' },
-    ],
-  },
-  {
-    id: 'cookies',
-    icon: '🍪',
-    title: 'Cookies & Tracking',
-    content: [
-      { type: 'para', text: 'Our website uses cookies and similar technologies to improve your experience. Here is what we use:' },
-      { type: 'table', headers: ['Cookie Type', 'Purpose', 'Duration'], rows: [
-        ['Essential Cookies', 'Login sessions, cart/order state, security tokens', 'Session'],
-        ['Functional Cookies', 'Language/city preferences, recently viewed items', '30 days'],
-        ['Analytics Cookies', 'Page views, traffic sources, user behaviour (Google Analytics)', '13 months'],
-        ['Performance Cookies', 'Page load times, error tracking (Sentry)', '30 days'],
-      ]},
-      { type: 'para', text: 'You can manage cookie preferences from your browser settings or our in-app cookie preferences panel. Disabling essential cookies may affect Platform functionality. We do not use advertising or targeting cookies.' },
+    emoji: '🛡️',
+    title: 'Data Security & Retention',
+    points: [
+      'All data in transit encrypted with TLS 1.2+. Sensitive data at rest uses AES-256.',
+      'Hosted on ISO 27001 certified cloud infrastructure with DDoS protection.',
+      'Order and transaction records retained for 7 years (tax compliance).',
+      'Account data retained for duration of account + 2 years. GPS logs kept 90 days.',
+      'Data breach? We will notify you within 72 hours as required by law.',
     ],
   },
   {
     id: 'rights',
-    icon: '⚖️',
+    emoji: '⚖️',
     title: 'Your Rights',
-    content: [
-      { type: 'para', text: 'Under Indian data protection law, and as per our commitment to privacy-first practices, you have the following rights:' },
-      { type: 'steps', items: [
-        { step: '01', title: 'Right to Access', desc: 'Request a copy of all personal data we hold about you.' },
-        { step: '02', title: 'Right to Correction', desc: 'Request correction of inaccurate or incomplete personal data.' },
-        { step: '03', title: 'Right to Erasure', desc: 'Request deletion of your data, subject to legal retention requirements.' },
-        { step: '04', title: 'Right to Data Portability', desc: 'Receive your data in a structured, machine-readable format.' },
-        { step: '05', title: 'Right to Withdraw Consent', desc: 'Withdraw marketing consent at any time without affecting prior processing.' },
-        { step: '06', title: 'Right to Grievance Redressal', desc: 'Lodge a complaint with our Data Protection Officer or the relevant regulatory authority.' },
-      ]},
-      { type: 'highlight', variant: 'green', icon: '📧', text: 'To exercise any of these rights, email privacy@oncallfuel.in with your registered mobile number and the specific request. We will respond within 30 days.' },
-    ],
-  },
-  {
-    id: 'children',
-    icon: '👶',
-    title: 'Children\'s Privacy',
-    content: [
-      { type: 'para', text: 'OnCallFuel services are not directed at individuals under the age of 18. We do not knowingly collect personal data from minors. If we discover that a minor has created an account, we will immediately delete all associated data.' },
-      { type: 'para', text: 'Parents or guardians who believe their child has provided personal data to OnCallFuel should contact us immediately at privacy@oncallfuel.in.' },
+    points: [
+      'Access: Request a copy of all personal data we hold about you.',
+      'Correction: Update inaccurate data — email support@oncallfuel.in anytime.',
+      'Deletion: Request erasure of your data, subject to legal retention obligations.',
+      'Withdraw Consent: Opt out of marketing communications at any time.',
+      'Grievance: Lodge a complaint with our DPO — we respond within 30 days.',
     ],
   },
   {
     id: 'contact',
-    icon: '📬',
-    title: 'Contact & DPO',
-    content: [
-      { type: 'para', text: 'For privacy-related questions, requests, or complaints, contact our Data Protection Officer:' },
-      { type: 'contact', items: [
-        { label: 'Data Protection Officer', value: 'privacy@oncallfuel.in' },
-        { label: 'Postal Address', value: 'Chagans Technologies Ltd., New Delhi' },
-        { label: 'Response Time', value: 'Within 30 days' },
-        { label: 'Regulatory Authority', value: 'Data Protection Board of India' },
-      ]},
+    emoji: '📬',
+    title: 'Contact Us',
+    isContact: true,
+    details: [
+      { label: 'Privacy / DPO', value: 'privacy@oncallfuel.in' },
+      { label: 'Support', value: 'support@oncallfuel.in' },
+      { label: 'Company', value: 'Chagans Technologies Limited' },
+      { label: 'Office', value: 'SCO-4, Dayal Bagh, Sector-39, Faridabad – 121009, HR' },
+      { label: 'Governing Law', value: 'IT Act 2000 · DPDPA 2023 · Indian Contract Act 1872' },
+      { label: 'Jurisdiction', value: 'Courts of Faridabad, Haryana, India' },
     ],
   },
 ];
 
-const renderContent = (blocks) =>
-  blocks.map((block, bi) => {
-    if (block.type === 'para') return <p key={bi} className="ocf-para">{block.text}</p>;
-    if (block.type === 'heading') return <h4 key={bi} className="ocf-sub-heading">{block.text}</h4>;
-    if (block.type === 'highlight') return (
-      <div key={bi} className={`ocf-highlight ocf-highlight--${block.variant}`}>
-        <span className="ocf-highlight-icon">{block.icon}</span><span>{block.text}</span>
-      </div>
-    );
-    if (block.type === 'list') return (
-      <ul key={bi} className="ocf-list">
-        {block.items.map((item, ii) => <li key={ii}><span className="ocf-list-dot ocf-list-dot--green"/>{item}</li>)}
-      </ul>
-    );
-    if (block.type === 'table') return (
-      <div key={bi} className="ocf-table-wrap">
-        <table className="ocf-table">
-          <thead><tr>{block.headers.map((h,hi)=><th key={hi}>{h}</th>)}</tr></thead>
-          <tbody>{block.rows.map((row,ri)=>(
-            <tr key={ri}>{row.map((cell,ci)=><td key={ci}>{cell}</td>)}</tr>
-          ))}</tbody>
-        </table>
-      </div>
-    );
-    if (block.type === 'cards') return (
-      <div key={bi} className="ocf-cards">
-        {block.items.map((card, ci) => (
-          <div key={ci} className="ocf-card ocf-card--green">
-            <span className="ocf-card-icon">{card.icon}</span>
-            <strong>{card.title}</strong>
-            <p>{card.desc}</p>
-          </div>
-        ))}
-      </div>
-    );
-    if (block.type === 'steps') return (
-      <div key={bi} className="ocf-steps">
-        {block.items.map((s, si) => (
-          <div key={si} className="ocf-step">
-            <div className="ocf-step-num ocf-step-num--green">{s.step}</div>
-            <div className="ocf-step-body">
-              <strong>{s.title}</strong><p>{s.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    );
-    if (block.type === 'contact') return (
-      <div key={bi} className="ocf-contact-grid">
-        {block.items.map((item, ii) => (
-          <div key={ii} className="ocf-contact-item">
-            <span>{item.label}</span><strong>{item.value}</strong>
-          </div>
-        ))}
-      </div>
-    );
-    return null;
-  });
-
 export default function PrivacyPolicy({ navigate }) {
-  const [activeSection, setActiveSection] = useState('intro');
+  const [open, setOpen] = useState('intro');
 
-  const scrollTo = (id) => {
-    setActiveSection(id);
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
+  const toggle = (id) => setOpen(open === id ? null : id);
 
   return (
-    <div className="ocf-page ocf-page--privacy">
-      <div className="ocf-hero ocf-hero--privacy">
-        <div className="ocf-hero-bg" />
-        <div className="ocf-hero-inner">
-          <div className="ocf-breadcrumb">
-            <button onClick={() => navigate && navigate('home')}>Home</button>
-            <span>/</span><span>Privacy Policy</span>
-          </div>
-          <div className="ocf-hero-badge">🔒 Data Protection</div>
-          <h1>Privacy Policy</h1>
-          <p>Your privacy matters to us. This policy explains exactly what personal data OnCallFuel collects, how we protect it, who we share it with, and the rights you have over your information.</p>
-          <div className="ocf-hero-meta">
-            <span>📅 Effective: {EFFECTIVE_DATE}</span>
-            <span>🔄 Last Updated: {LAST_UPDATED}</span>
-            <span>🇮🇳 DPDPA Compliant</span>
-          </div>
-        </div>
+    <div className="pp-page">
+
+      {/* ── HEADER ── */}
+      <header className="pp-header">
+        <button className="pp-back" onClick={() => navigate && navigate('home')}>
+          ← Home
+        </button>
+        <span className="pp-logo">⛽ OnCallFuel</span>
+        <a href="mailto:privacy@oncallfuel.in" className="pp-hmail">
+          privacy@oncallfuel.in
+        </a>
+      </header>
+
+      {/* ── HERO ── */}
+      <div className="pp-hero">
+        <div className="pp-hero-pill">🛡️ DPDPA · IT Act 2000</div>
+        <h1 className="pp-hero-h1">Privacy <span>Policy</span></h1>
+        <p className="pp-hero-sub">Clear. Honest. Yours to know.</p>
+     
       </div>
 
-      <div className="ocf-layout">
-        <aside className="ocf-toc ocf-toc--privacy">
-          <div className="ocf-toc-title">Contents</div>
-          {SECTIONS.map(s => (
-            <button key={s.id}
-              className={`ocf-toc-item${activeSection === s.id ? ' ocf-toc-item--active' : ''}`}
-              onClick={() => scrollTo(s.id)}>
-              <span className="ocf-toc-icon">{s.icon}</span>{s.title}
+      {/* ── ACCORDION ── */}
+      <div className="pp-list">
+        {SECTIONS.map((sec, si) => (
+          <div
+            key={sec.id}
+            className={`pp-item${open === sec.id ? ' pp-item--open' : ''}`}
+            style={{ animationDelay: `${si * 0.06}s` }}
+          >
+            <button className="pp-item-head" onClick={() => toggle(sec.id)}>
+              <span className="pp-item-left">
+                <span className="pp-item-emoji">{sec.emoji}</span>
+                <span className="pp-item-title">{sec.title}</span>
+              </span>
+              <span className={`pp-item-chevron${open === sec.id ? ' pp-item-chevron--up' : ''}`}>
+                ›
+              </span>
             </button>
-          ))}
-          <div className="ocf-toc-contact">
-            <strong>Privacy Queries</strong>
-            <a href="mailto:privacy@oncallfuel.in">privacy@oncallfuel.in</a>
-          </div>
-        </aside>
 
-        <main className="ocf-main">
-          {SECTIONS.map((sec, si) => (
-            <section key={sec.id} id={sec.id} className="ocf-section"
-              style={{ animationDelay: `${si * 0.04}s` }}>
-              <div className="ocf-section-header">
-                <span className="ocf-section-icon">{sec.icon}</span>
-                <h2>{sec.title}</h2>
-              </div>
-              <div className="ocf-section-body">{renderContent(sec.content)}</div>
-            </section>
-          ))}
-          <div className="ocf-footer-note">
-            <span className="ocf-footer-icon">🔒</span>
-            <div>
-              <strong>OnCallFuel — Privacy First</strong>
-              <p>Effective {EFFECTIVE_DATE}. Questions? Contact <a href="mailto:privacy@oncallfuel.in">privacy@oncallfuel.in</a></p>
+            <div className="pp-item-body">
+              {sec.isContact ? (
+                <div className="pp-contact">
+                  {sec.details.map((d, i) => (
+                    <div key={i} className="pp-contact-row">
+                      <span className="pp-contact-key">{d.label}</span>
+                      <span className="pp-contact-val">{d.value}</span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <ul className="pp-points">
+                  {sec.points.map((pt, i) => (
+                    <li key={i}>
+                      <span className="pp-dot" />
+                      <span>{pt}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
-        </main>
+        ))}
       </div>
+
+      {/* ── FOOTER ── */}
+      <footer className="pp-footer">
+        <p>⛽ OnCallFuel · Chagans Technologies Limited · Faridabad, Haryana</p>
+        <p>
+          Questions?&nbsp;
+          <a href="mailto:privacy@oncallfuel.in">privacy@oncallfuel.in</a>
+          &nbsp;·&nbsp;Response within 30 days
+        </p>
+      </footer>
+
     </div>
   );
 }

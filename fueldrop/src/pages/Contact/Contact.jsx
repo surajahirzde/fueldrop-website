@@ -94,7 +94,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <strong>Call Us</strong>
-                  <span>+91-8088994444</span>
+                  <span>+91-921133 6188</span>
                   <span>Mon–Sat 8AM – 8PM</span>
                 </div>
               </div>
@@ -105,7 +105,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <strong>Email Us</strong>
-                  <span>support@fueldrop.in</span>
+                  <span>support@OnCallFuel.in</span>
                   <span>Response within 2 hours</span>
                 </div>
               </div>
@@ -116,14 +116,15 @@ export default function Contact() {
                 </div>
                 <div>
                   <strong>Head Office</strong>
-                  <span>Tower B, Quattro Towers</span>
-                  <span>Udyog Vihar Phase 4, Gurugram 122016</span>
+                  <span>SC0-4,Dayal Bagh, sector-39</span>
+                  <span>FARIDABAD-121009</span>
                 </div>
               </div>
 
             </div>
           </div>
 
+          
           {/* RIGHT FORM */}
           <div className="fdct-form-wrap">
             {submitStatus === 'success' ? (

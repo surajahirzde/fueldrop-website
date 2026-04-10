@@ -1,344 +1,265 @@
 // src/pages/RefundPolicy.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './RefundPolicy.css';
-
-const LAST_UPDATED = 'April 1, 2025';
-const EFFECTIVE_DATE = 'April 1, 2025';
 
 const SECTIONS = [
   {
     id: 'overview',
-    icon: '⛽',
+    emoji: '⛽',
     title: 'Overview',
-    content: [
-      {
-        type: 'para',
-        text: 'OnCallFuel ("we", "our", "us") provides emergency and scheduled doorstep fuel delivery services — including Petrol and Diesel — to individuals, households, hotels, businesses, and corporate entities across serviceable areas in India. This Refund & Cancellation Policy outlines the conditions under which refunds are issued and cancellations are accepted.',
-      },
-      {
-        type: 'para',
-        text: 'By placing an order through the OnCallFuel platform (website, mobile app, or phone), you agree to the terms stated in this policy. We encourage all customers to read this document carefully before placing an order.',
-      },
+    points: [
+      'OnCallFuel provides emergency and scheduled doorstep fuel delivery (Petrol & Diesel) to businesses, and corporate entities across serviceable areas in India.',
+      'This policy outlines all conditions under which refunds are issued and cancellations are accepted.',
+      'By placing an order via www.oncallfuel.in, our mobile app, or phone, you agree to the terms in this policy.',
+      'Operated by Chagans Technologies Limited, SCO-4, Dayal Bagh, Sector-39, Faridabad – 121009, Haryana.',
     ],
   },
   {
     id: 'cancellation',
-    icon: '❌',
-    title: 'Order Cancellation Policy',
-    content: [
-      {
-        type: 'heading',
-        text: 'Cancellation by Customer',
-      },
-      {
-        type: 'table',
-        headers: ['Time of Cancellation', 'Cancellation Fee', 'Refund'],
-        rows: [
-          ['Within 10 minutes of order placement', 'Nil', '100% refund'],
-          ['10 – 30 minutes after order placement', '₹50 flat fee', 'Remaining amount refunded'],
-          ['After delivery partner is dispatched', '₹150 or 5% of order value (whichever is higher)', 'Remaining amount refunded'],
-          ['After fuel delivery has begun', 'Non-refundable', 'No refund'],
-        ],
-      },
-      {
-        type: 'heading',
-        text: 'Cancellation by OnCallFuel',
-      },
-      {
-        type: 'para',
-        text: 'We reserve the right to cancel any order under the following circumstances, and a full refund will be issued:',
-      },
-      {
-        type: 'list',
-        items: [
-          'Delivery location is outside our current serviceable zone',
-          'Severe weather conditions or natural calamities preventing safe delivery',
-          'Fuel stock unavailability at the nearest depot',
-          'Incomplete, incorrect, or unverifiable address or contact information',
-          'Suspected fraudulent transaction flagged by our payment gateway',
-          'Government-imposed restrictions or curfews in the delivery area',
-        ],
-      },
+    emoji: '❌',
+    title: 'Order Cancellation',
+    table: {
+      label: 'Cancellation by Customer',
+      headers: ['When You Cancel', 'Fee', 'Refund'],
+      rows: [
+        ['Within 10 minutes of order', 'Nil', '100% refund'],
+        ['10 – 30 mins after order', '₹50 flat', 'Balance refunded'],
+        ['After partner dispatched', '₹150 or 5% (whichever higher)', 'Balance refunded'],
+        ['After delivery has begun', 'Non-refundable', 'No refund'],
+      ],
+    },
+    extraLabel: 'Cancellation by OnCallFuel (full refund issued)',
+    points: [
+      'Delivery location is outside our current serviceable zone.',
+      'Severe weather, natural calamity, or government-imposed restrictions in the delivery area.',
+      'Fuel stock unavailability at the nearest depot.',
+      'Incomplete, incorrect, or unverifiable address or contact information.',
+      'Suspected fraudulent transaction flagged by our payment gateway.',
     ],
   },
   {
-    id: 'refund-eligibility',
-    icon: '✅',
+    id: 'eligible',
+    emoji: '✅',
     title: 'Refund Eligibility',
-    content: [
-      {
-        type: 'para',
-        text: 'You are eligible for a full or partial refund under the following circumstances:',
-      },
-      {
-        type: 'cards',
-        items: [
-          { icon: '📦', title: 'Short Delivery', desc: 'Quantity delivered is measurably less than what was ordered and paid for, as verified by our calibrated flow meters.' },
-          { icon: '🧪', title: 'Quality Issue', desc: 'Fuel quality does not meet BIS/PESO standards. Must be reported with supporting evidence within 2 hours of delivery.' },
-          { icon: '⏰', title: 'Non-Delivery', desc: 'Fuel was never delivered despite payment being processed, and no rescheduling was offered or accepted.' },
-          { icon: '💳', title: 'Duplicate Charge', desc: 'Customer was charged more than once for the same order due to a payment gateway error.' },
-          { icon: '🗓️', title: 'Failed Scheduled Delivery', desc: 'A pre-booked scheduled delivery was not fulfilled and no advance notice was given by OnCallFuel.' },
-          { icon: '🔁', title: 'Wrong Fuel Type', desc: 'A different fuel type was delivered than what was ordered (e.g., Diesel instead of Petrol).' },
-        ],
-      },
+    cards: [
+      { emoji: '📦', title: 'Short Delivery', desc: 'Quantity delivered is less than ordered, verified by our calibrated flow meters.' },
+      { emoji: '🧪', title: 'Quality Issue', desc: 'Fuel does not meet BIS/PESO standards. Must be reported within 2 hours of delivery.' },
+      { emoji: '⏰', title: 'Non-Delivery', desc: 'Fuel was never delivered despite payment, and no rescheduling was offered.' },
+      { emoji: '💳', title: 'Duplicate Charge', desc: 'You were charged more than once for the same order due to a payment gateway error.' },
+      { emoji: '🗓️', title: 'Failed Scheduled', desc: 'A pre-booked delivery was not fulfilled without advance notice from OnCallFuel.' },
+      { emoji: '🔁', title: 'Wrong Fuel Type', desc: 'A different fuel type was delivered than what was ordered (e.g., Diesel instead of Petrol).' },
     ],
   },
   {
-    id: 'non-refundable',
-    icon: '🚫',
-    title: 'Non-Refundable Situations',
-    content: [
-      {
-        type: 'para',
-        text: 'Refunds will NOT be issued in the following cases:',
-      },
-      {
-        type: 'list',
-        items: [
-          'Customer was unavailable at the delivery location at the agreed time',
-          'Customer provided incorrect address, wrong vehicle details, or wrong fuel type',
-          'Customer refused delivery after the tanker arrived at the location',
-          'Delivery completed fully and as per order specifications',
-          'Dispute raised after 48 hours of delivery completion',
-          'Losses arising from fuel consumption or vehicle/equipment damage not directly caused by OnCallFuel',
-          'Price fluctuations between order placement and delivery',
-          'Convenience fees, platform fees, or GST amounts',
-        ],
-      },
-    ],
-  },
-  {
-    id: 'process',
-    icon: '🔄',
-    title: 'Refund Process & Timeline',
-    content: [
-      {
-        type: 'para',
-        text: 'To initiate a refund, customers must contact our support team within 48 hours of the delivery window.',
-      },
-      {
-        type: 'steps',
-        items: [
-          { step: '01', title: 'Raise a Request', desc: 'Contact us via app, website chat, email at refunds@oncallfuel.in, or call our helpline with your Order ID.' },
-          { step: '02', title: 'Verification', desc: 'Our team will review delivery logs, GPS data, flow meter readings, and payment records within 24 hours.' },
-          { step: '03', title: 'Approval Decision', desc: 'You will receive a written decision (email/SMS) within 3 business days of request submission.' },
-          { step: '04', title: 'Refund Processed', desc: 'Approved refunds are processed within 5–7 business days to the original payment method.' },
-        ],
-      },
-      {
-        type: 'heading',
-        text: 'Refund Timeline by Payment Method',
-      },
-      {
-        type: 'table',
-        headers: ['Payment Method', 'Refund Timeline'],
-        rows: [
-          ['UPI (GPay, PhonePe, Paytm)', '3–5 business days'],
-          ['Credit / Debit Card', '5–7 business days'],
-          ['Net Banking', '5–7 business days'],
-          ['OnCallFuel Wallet', 'Within 24 hours'],
-          ['Cash on Delivery', 'Bank transfer within 7 business days'],
-        ],
-      },
+    id: 'nonrefund',
+    emoji: '🚫',
+    title: 'Non-Refundable Cases',
+    alert: 'Refunds will NOT be issued in the following situations.',
+    points: [
+      'Customer was unavailable at the delivery location at the agreed time.',
+      'Customer provided incorrect address, wrong vehicle details, or wrong fuel type.',
+      'Customer refused delivery after the tanker arrived at the location.',
+      'Delivery completed fully and as per order specifications.',
+      'Dispute raised after 48 hours of delivery completion.',
+      'Losses from fuel consumption or vehicle/equipment damage not caused by OnCallFuel.',
+      'Price fluctuations between order placement and delivery.',
+      'Convenience fees, platform fees, or GST amounts are non-refundable.',
     ],
   },
   {
     id: 'partial',
-    icon: '⚖️',
+    emoji: '⚖️',
     title: 'Partial Refunds',
-    content: [
-      {
-        type: 'para',
-        text: 'In cases of partial delivery, the refund will be calculated proportionally based on the verified shortfall quantity, at the per-litre rate charged at the time of order. Example: If you ordered 200 litres of Diesel at ₹87.71/L and only 185 litres were delivered and verified, you will receive a refund of: 15 × ₹87.71 = ₹1,315.65 (exclusive of applicable GST already borne by the company).',
-      },
+    highlight: 'Partial refund = Shortfall Litres × Per-Litre Rate charged at order time.',
+    points: [
+      'Calculated proportionally based on verified shortfall quantity at the per-litre rate charged.',
+      'Example: 200 litres ordered at ₹87.71/L, only 185 litres delivered → Refund = 15 × ₹87.71 = ₹1,315.65.',
+      'Shortfall must be verified by our delivery logs, GPS data, and calibrated flow meter records.',
+      'GST already borne by OnCallFuel is excluded from partial refund calculations.',
     ],
+  },
+  {
+    id: 'process',
+    emoji: '🔄',
+    title: 'Refund Process & Timeline',
+    steps: [
+      { num: '01', title: 'Raise a Request', desc: 'Contact us via app, website chat, or email refunds@oncallfuel.in with your Order ID — within 48 hours of delivery.' },
+      { num: '02', title: 'Verification', desc: 'Our team reviews delivery logs, GPS data, flow meter readings & payment records within 24 hours.' },
+      { num: '03', title: 'Decision', desc: 'Written decision (email/SMS) sent within 3 business days of request submission.' },
+      { num: '04', title: 'Refund Credited', desc: 'Approved refunds processed to original payment method within 5–7 business days.' },
+    ],
+    table: {
+      label: 'Refund Timeline by Payment Method',
+      headers: ['Payment Method', 'Timeline'],
+      rows: [
+        ['UPI (GPay, PhonePe, Paytm)', '3–5 business days'],
+        ['Credit / Debit Card', '5–7 business days'],
+        ['Net Banking', '5–7 business days'],
+        ['OnCallFuel Wallet', 'Within 24 hours'],
+        ['Cash on Delivery', 'Bank transfer within 7 business days'],
+      ],
+    },
   },
   {
     id: 'disputes',
-    icon: '🏛️',
-    title: 'Dispute Resolution',
-    content: [
-      {
-        type: 'para',
-        text: 'If you are dissatisfied with the refund decision, you may escalate your complaint to our Grievance Officer within 15 days of the initial decision.',
-      },
-      {
-        type: 'contact',
-        items: [
-          { label: 'Grievance Officer', value: 'Mr. Rajesh Sharma' },
-          { label: 'Email', value: 'grievance@oncallfuel.in' },
-          { label: 'Response Time', value: 'Within 7 business days' },
-          { label: 'Jurisdiction', value: 'Delhi, India' },
-        ],
-      },
-      {
-        type: 'para',
-        text: 'All disputes are subject to the jurisdiction of courts in New Delhi, India, and are governed by the laws of India.',
-      },
+    emoji: '🏛️',
+    title: 'Disputes & Grievances',
+    points: [
+      'If dissatisfied with a refund decision, escalate to our Grievance Officer within 15 days of the initial decision.',
+      'All disputes are governed by Indian law and subject to jurisdiction of courts in Faridabad, Haryana.',
+      'OnCallFuel may update this policy at any time. Continued use of services constitutes acceptance of revised terms.',
     ],
-  },
-  {
-    id: 'amendments',
-    icon: '📝',
-    title: 'Policy Amendments',
-    content: [
-      {
-        type: 'para',
-        text: 'OnCallFuel reserves the right to modify this Refund & Cancellation Policy at any time without prior notice. The updated policy will be posted on our website and app. Continued use of our services after any modification constitutes your acceptance of the revised policy.',
-      },
+    contact: [
+      { label: 'Refunds', value: 'refunds@oncallfuel.in' },
+      { label: 'Grievances', value: 'grievance@oncallfuel.in' },
+      { label: 'Support', value: 'support@oncallfuel.in' },
+      { label: 'Company', value: 'Chagans Technologies Limited' },
+      { label: 'Office', value: 'SCO-4, Dayal Bagh, Sector-39, Faridabad – 121009, HR' },
+      { label: 'Jurisdiction', value: 'Courts of Faridabad, Haryana, India' },
     ],
   },
 ];
 
 export default function RefundPolicy({ navigate }) {
-  const [activeSection, setActiveSection] = useState('overview');
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  const scrollTo = (id) => {
-    setActiveSection(id);
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
-
-  const renderContent = (blocks) =>
-    blocks.map((block, bi) => {
-      if (block.type === 'para') return (
-        <p key={bi} className="ocf-para">{block.text}</p>
-      );
-      if (block.type === 'heading') return (
-        <h4 key={bi} className="ocf-sub-heading">{block.text}</h4>
-      );
-      if (block.type === 'list') return (
-        <ul key={bi} className="ocf-list">
-          {block.items.map((item, ii) => (
-            <li key={ii}><span className="ocf-list-dot" />{item}</li>
-          ))}
-        </ul>
-      );
-      if (block.type === 'table') return (
-        <div key={bi} className="ocf-table-wrap">
-          <table className="ocf-table">
-            <thead>
-              <tr>{block.headers.map((h, hi) => <th key={hi}>{h}</th>)}</tr>
-            </thead>
-            <tbody>
-              {block.rows.map((row, ri) => (
-                <tr key={ri}>
-                  {row.map((cell, ci) => <td key={ci}>{cell}</td>)}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      );
-      if (block.type === 'cards') return (
-        <div key={bi} className="ocf-cards">
-          {block.items.map((card, ci) => (
-            <div key={ci} className="ocf-card">
-              <span className="ocf-card-icon">{card.icon}</span>
-              <strong>{card.title}</strong>
-              <p>{card.desc}</p>
-            </div>
-          ))}
-        </div>
-      );
-      if (block.type === 'steps') return (
-        <div key={bi} className="ocf-steps">
-          {block.items.map((s, si) => (
-            <div key={si} className="ocf-step">
-              <div className="ocf-step-num">{s.step}</div>
-              <div className="ocf-step-body">
-                <strong>{s.title}</strong>
-                <p>{s.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      );
-      if (block.type === 'contact') return (
-        <div key={bi} className="ocf-contact-grid">
-          {block.items.map((item, ii) => (
-            <div key={ii} className="ocf-contact-item">
-              <span>{item.label}</span>
-              <strong>{item.value}</strong>
-            </div>
-          ))}
-        </div>
-      );
-      return null;
-    });
+  const [open, setOpen] = useState('overview');
+  const toggle = (id) => setOpen(open === id ? null : id);
 
   return (
-    <div className="ocf-page">
-      {/* Hero */}
-      <div className="ocf-hero ocf-hero--refund">
-        <div className="ocf-hero-bg" />
-        <div className="ocf-hero-inner">
-          <div className="ocf-breadcrumb">
-            <button onClick={() => navigate && navigate('home')}>Home</button>
-            <span>/</span>
-            <span>Refund Policy</span>
-          </div>
-          <div className="ocf-hero-badge">💰 Refund &amp; Cancellation</div>
-          <h1>Refund &amp; Cancellation Policy</h1>
-          <p>Transparent, fair, and customer-first — understand your rights and how we handle cancellations and refunds for every fuel delivery.</p>
-          <div className="ocf-hero-meta">
-            <span>📅 Effective: {EFFECTIVE_DATE}</span>
-            <span>🔄 Last Updated: {LAST_UPDATED}</span>
-          </div>
-        </div>
+    <div className="rp-page">
+
+      {/* ── HEADER ── */}
+      <header className="rp-header">
+        <button className="rp-back" onClick={() => navigate && navigate('home')}>← Home</button>
+        <span className="rp-logo">⛽ OnCallFuel</span>
+        <a href="mailto:refunds@oncallfuel.in" className="rp-hmail">refunds@oncallfuel.in</a>
+      </header>
+
+      {/* ── HERO ── */}
+      <div className="rp-hero">
+        <div className="rp-hero-pill">💰 Refund &amp; Cancellation Policy</div>
+        <h1 className="rp-hero-h1">Refund &amp; <span>Cancellation</span></h1>
+        <p className="rp-hero-sub">Transparent, fair, and customer-first — know your rights.</p>
+       
       </div>
 
-      <div className="ocf-layout">
-        {/* Sidebar TOC */}
-        <aside className="ocf-toc">
-          <div className="ocf-toc-title">Contents</div>
-          {SECTIONS.map(s => (
-            <button
-              key={s.id}
-              className={`ocf-toc-item${activeSection === s.id ? ' ocf-toc-item--active' : ''}`}
-              onClick={() => scrollTo(s.id)}
-            >
-              <span className="ocf-toc-icon">{s.icon}</span>
-              {s.title}
+      {/* ── ACCORDION ── */}
+      <div className="rp-list">
+        {SECTIONS.map((sec, si) => (
+          <div
+            key={sec.id}
+            className={`rp-item${open === sec.id ? ' rp-item--open' : ''}`}
+            style={{ animationDelay: `${si * 0.055}s` }}
+          >
+            {/* HEAD */}
+            <button className="rp-item-head" onClick={() => toggle(sec.id)}>
+              <span className="rp-item-left">
+                <span className="rp-item-emoji">{sec.emoji}</span>
+                <span className="rp-item-title">{sec.title}</span>
+              </span>
+              <span className={`rp-chevron${open === sec.id ? ' rp-chevron--up' : ''}`}>›</span>
             </button>
-          ))}
-          <div className="ocf-toc-contact">
-            <strong>Need Help?</strong>
-            <a href="mailto:refunds@oncallfuel.in">refunds@oncallfuel.in</a>
-            <a href="tel:+911800000000">1800-XXX-XXXX (Toll Free)</a>
-          </div>
-        </aside>
 
-        {/* Main content */}
-        <main className="ocf-main">
-          {SECTIONS.map((sec, si) => (
-            <section key={sec.id} id={sec.id} className="ocf-section"
-              style={{ animationDelay: `${si * 0.05}s` }}>
-              <div className="ocf-section-header">
-                <span className="ocf-section-icon">{sec.icon}</span>
-                <h2>{sec.title}</h2>
-              </div>
-              <div className="ocf-section-body">
-                {renderContent(sec.content)}
-              </div>
-            </section>
-          ))}
+            {/* BODY */}
+            <div className="rp-item-body">
 
-          <div className="ocf-footer-note">
-            <span className="ocf-footer-icon">⛽</span>
-            <div>
-              <strong>OnCallFuel — Emergency Fuel Delivery</strong>
-              <p>This policy is effective as of {EFFECTIVE_DATE}. For questions, reach us at <a href="mailto:support@oncallfuel.in">support@oncallfuel.in</a></p>
+              {/* amber alert */}
+              {sec.alert && (
+                <div className="rp-alert">
+                  <span>⚠️</span><span>{sec.alert}</span>
+                </div>
+              )}
+
+              {/* green highlight */}
+              {sec.highlight && (
+                <div className="rp-highlight">
+                  <span>💡</span><span>{sec.highlight}</span>
+                </div>
+              )}
+
+              {/* bullet points */}
+              {sec.points && (
+                <ul className="rp-points">
+                  {sec.points.map((pt, i) => (
+                    <li key={i}><span className="rp-dot" /><span>{pt}</span></li>
+                  ))}
+                </ul>
+              )}
+
+              {/* table */}
+              {sec.table && (
+                <div className="rp-table-block">
+                  {sec.table.label && <p className="rp-table-label">{sec.table.label}</p>}
+                  <div className="rp-table-wrap">
+                    <table className="rp-table">
+                      <thead>
+                        <tr>{sec.table.headers.map((h, i) => <th key={i}>{h}</th>)}</tr>
+                      </thead>
+                      <tbody>
+                        {sec.table.rows.map((row, ri) => (
+                          <tr key={ri}>{row.map((cell, ci) => <td key={ci}>{cell}</td>)}</tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
+
+              {/* extra sub-label + points for cancellation */}
+              {sec.extraLabel && (
+                <p className="rp-table-label" style={{ marginTop: '4px' }}>{sec.extraLabel}</p>
+              )}
+
+              {/* steps */}
+              {sec.steps && (
+                <div className="rp-steps">
+                  {sec.steps.map((s, i) => (
+                    <div key={i} className="rp-step">
+                      <div className="rp-step-num">{s.num}</div>
+                      <div className="rp-step-body">
+                        <strong>{s.title}</strong>
+                        <p>{s.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* service cards */}
+              {sec.cards && (
+                <div className="rp-cards">
+                  {sec.cards.map((c, ci) => (
+                    <div key={ci} className="rp-card">
+                      <span className="rp-card-emoji">{c.emoji}</span>
+                      <strong>{c.title}</strong>
+                      <p>{c.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* contact grid */}
+              {sec.contact && (
+                <div className="rp-contact">
+                  {sec.contact.map((row, ri) => (
+                    <div key={ri} className="rp-contact-row">
+                      <span className="rp-contact-key">{row.label}</span>
+                      <span className="rp-contact-val">{row.value}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
             </div>
           </div>
-        </main>
+        ))}
       </div>
+
+      {/* ── FOOTER ── */}
+      <footer className="rp-footer">
+        <p>⛽ OnCallFuel · Chagans Technologies Limited · SCO-4, Dayal Bagh, Sector-39, Faridabad – 121009, Haryana</p>
+        <p>Refund queries: <a href="mailto:refunds@oncallfuel.in">refunds@oncallfuel.in</a> · Response within 3 business days</p>
+      </footer>
+
     </div>
   );
 }

@@ -69,7 +69,7 @@ const CLIENTS = [
 const TESTIMONIALS = [
   {
     name: 'Aman Transport Services, Gurugram',
-    text: 'FuelDrop team is doing excellent work. As soon as we place an order, we get the delivery in 4 hours. Highly recommended!',
+    text: 'OnCallFuel team is doing excellent work. As soon as we place an order, we get the delivery in 4 hours. Highly recommended!',
   },
   {
     name: 'Satyam Auto Service, Faridabad',
@@ -77,7 +77,7 @@ const TESTIMONIALS = [
   },
   {
     name: 'Nitin Motors, Delhi NCR.',
-    text: 'Reliable, on-time, cashless. FuelDrop has transformed how we manage diesel procurement at all our plants.',
+    text: 'Reliable, on-time, cashless. OnCallFuel has transformed how we manage diesel procurement at all our plants.',
   },
 ];
 
@@ -139,7 +139,7 @@ export default function Home({ navigate }) {
           <div className="fdh-section-header">
             <span className="fdh-eyebrow">What We Deliver</span>
             <h2>All Types of Energy, <span className="fdh-green">One Platform</span></h2>
-            <p>From diesel to petrol— FuelDrop is your single source for all energy needs, delivered safely and on time.</p>
+            <p>From diesel to petrol— OnCallFuel is your single source for all energy needs, delivered safely and on time.</p>
           </div>
 
           {/* NEW: two-col layout — fuel cards left, price widget right */}
@@ -204,7 +204,7 @@ export default function Home({ navigate }) {
             </div>
           </div>
           <div className="fdh-why-text">
-            <span className="fdh-eyebrow">Why Choose FuelDrop</span>
+            <span className="fdh-eyebrow">Why Choose OnCallFuel</span>
             <h2>Bharat's Most Trusted <span className="fdh-green">Doorstep Diesel</span> Delivery Service</h2>
             <p>Searching for a faster, more efficient way to refuel? Our mission is to provide a seamless and secure experience, delivering precise quality and quantity of diesel right at your fingertips — powered by IoT and Cloud technology.</p>
             <ul className="fdh-checklist">
@@ -290,7 +290,7 @@ export default function Home({ navigate }) {
       <section className="fdh-app fd-section fd-section-dark">
         <div className="fd-container fdh-app-inner">
           <div className="fdh-app-text">
-            <h2>Upgrade Your Refueling Experience with <span className="fdh-green">FuelDrop!</span></h2>
+            <h2>Upgrade Your Refueling Experience with <span className="fdh-green">OnCallFuel!</span></h2>
             <p style={{ color: '#9ca3af' }}>Order diesel at your doorstep. Smooth, smart, and secure procurement at your fingertips.</p>
           </div>
           <div className="fdh-app-phones">
