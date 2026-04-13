@@ -375,15 +375,7 @@ export default function OrderFlow({ navigate, fuelPrices }) {
       </div>
 
       <div className="of-pay-methods">
-        <button className={`of-pay-card${payMethod==='cod'&&!showPayment?' of-pay-card--sel':''}`}
-          onClick={() => { setPayMethod('cod'); setShowPayment(false); setPaymentError(''); setIsPaymentInitiated(false); }}>
-          <span className="of-pay-card__icon">💵</span>
-          <div className="of-pay-card__info">
-            <strong>Cash on Delivery</strong>
-            <span>Pay when fuel arrives</span>
-          </div>
-          <div className={`of-radio${payMethod==='cod'?' of-radio--sel':''}`} />
-        </button>
+     
 
         <button className={`of-pay-card${payMethod==='upi'?' of-pay-card--sel':''}`}
           onClick={() => { setPayMethod('upi'); setShowPayment(true); setPaymentError(''); setIsPaymentInitiated(false); }}>
