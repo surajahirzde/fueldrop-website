@@ -18,10 +18,10 @@ const CACHE_TTL = 60 * 60 * 1000;
 
 // Fallback mock data in case API is down
 const MOCK_PRICES = {
-  'Delhi': { petrol: 96.72, diesel: 89.62 },
-  'Faridabad': { petrol: 95.34, diesel: 88.15 },
-  'Gurugram': { petrol: 95.67, diesel: 88.43 },
-  'Jaipur': { petrol: 106.32, diesel: 90.51 },
+  'Delhi': { petrol: 94.77, diesel: 87.67 },
+  'Faridabad': { petrol: 95.95, diesel: 88.4 },
+  'Gurugram': { petrol: 95.65, diesel: 88.01 },
+  'Jaipur': { petrol: 104.41, diesel: 89.93 },
 };
 
 async function fetchCityPrices(cityObj) {
