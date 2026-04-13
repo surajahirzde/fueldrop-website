@@ -94,7 +94,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <strong>Call Us</strong>
-                  <span>+91-921133 6188</span>
+                  <span>+91-921133 6186</span>
                   <span>Mon–Sat 8AM – 8PM</span>
                 </div>
               </div>
@@ -105,7 +105,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <strong>Email Us</strong>
-                  <span>support@OnCallFuel.in</span>
+                  <span>oncallfuel88@gmail.com</span>
                   <span>Response within 2 hours</span>
                 </div>
               </div>

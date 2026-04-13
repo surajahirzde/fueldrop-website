@@ -18,12 +18,7 @@ const NAV_LINKS = [
       { label: 'FB-Vault', page: 'fb-vault' },
     ]
   },
-  {
-    label: 'News & Media', dropdown: [
-      { label: 'Our Blog', page: 'blog' },
-      { label: 'Awards & Recognition', page: 'awards' },
-    ]
-  },
+
   { label: 'Contact Us', page: 'contact' },
 ];
 

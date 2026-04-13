@@ -19,9 +19,9 @@ export default function About({ navigate }) {
             <span className="fda-eyebrow">Who We Are</span>
             <h2>Revolutionising the Way <span className="fda-green">India Fuels</span></h2>
             <p>OnCallFuel (formerly Treis Solutions Pvt. Ltd.) was founded with a singular mission — to make fuel procurement as simple as ordering food online. We are India's most trusted IoT and Cloud-enabled doorstep fuel delivery company.</p>
-            <p>Operating across 20+ cities, we deliver diesel, petrol, LPG and CNG directly to factories, construction sites, hospitals, hotels, apartments and households — safely, precisely, and on time.</p>
+            <p>Operating across 20+ cities, we deliver diesel, petrol directly to factories, construction sites, fuel stations — safely, precisely, and on time.</p>
             <div className="fda-highlights">
-              {[['20+', 'Cities'], ['55K+', 'Customers'], ['500+', 'Daily Orders'], ['ISO', 'Certified']].map(([n, l]) => (
+              {[['20+', 'Cities'], ['55K+', 'Customers'], ['500+', 'Daily Orders']].map(([n, l]) => (
                 <div key={l} className="fda-hl"><strong>{n}</strong><span>{l}</span></div>
               ))}
             </div>
@@ -42,9 +42,9 @@ export default function About({ navigate }) {
             {[
               { icon: '🎯', title: 'Precision', desc: 'Every drop is precisely measured using PESO-certified equipment.' },
               { icon: '🔒', title: 'Safety First', desc: 'All our vehicles and personnel are HSDA trained and certified.' },
-              { icon: '⚡', title: 'Speed', desc: 'Average delivery time under 4 hours from order placement.' },
-              { icon: '🌿', title: 'Sustainability', desc: 'Working towards greener energy options for Bharat\'s future.' },
-              { icon: '📱', title: 'Technology', desc: 'IoT, AI and Cloud at the core of every delivery we make.' },
+         
+     
+           
               { icon: '❤️', title: 'Customer Love', desc: '98% satisfaction across 33,000+ verified customer reviews.' },
             ].map((v, i) => (
               <div key={i} className="fda-value-card">
@@ -57,30 +57,7 @@ export default function About({ navigate }) {
         </div>
       </section>
 
-      <section className="fda-journey fd-section fd-section-dark">
-        <div className="fd-container">
-          <div className="fda-section-header fda-section-header-light">
-            <span className="fda-eyebrow fda-eyebrow-light">Our Journey</span>
-            <h2 style={{ color: 'white' }}>Milestones that <span className="fda-green">Define Us</span></h2>
-          </div>
-          <div className="fda-timeline">
-            {[
-              { year: '2017', event: 'OnCallFuel founded in Gurugram with a single fuel tanker.' },
-              { year: '2018', event: 'Expanded to 5 cities; launched our first mobile app.' },
-              { year: '2019', event: 'Onboarded 1,000+ B2B customers including Indus Towers.' },
-              { year: '2021', event: 'Launched DOT (Diesel on Tap) and Smart Tank products.' },
-              { year: '2022', event: 'Crossed ₹100 Cr in annual revenue. Operating in 15 cities.' },
-              { year: '2024', event: '55,000+ happy customers. Expanding pan-India with 500+ daily orders.' },
-            ].map((m, i) => (
-              <div key={i} className="fda-milestone">
-                <div className="fda-milestone-year">{m.year}</div>
-                <div className="fda-milestone-dot"></div>
-                <div className="fda-milestone-event">{m.event}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+  
 
       <div className="fda-cta fd-section">
         <div className="fd-container fda-cta-inner">

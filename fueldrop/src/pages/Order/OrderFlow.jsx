@@ -3,31 +3,19 @@ import React, { useState } from 'react';
 import './OrderFlow.css';
 import AmountForm from "./Payment";
 
-// FUEL_PRICES ab prop se aayega (Home.jsx se)
-// const FUEL_PRICES = { Diesel: 87.71, Petrol: 96.72, LPG: 903, CNG: 75 };  // <-- REMOVED
-
 const FUEL_UNIT   = { Diesel: 'litre', Petrol: 'litre' };
 const FUEL_MIN    = { Diesel: 100, Petrol: 100 };
 const FUEL_META   = {
   Diesel: { icon: '🛢️', color: '#16a34a', bg: '#f0fdf4' },
   Petrol: { icon: '⛽', color: '#f97316', bg: '#fff7ed' },
- 
 };
 
-const STATES = ['Delhi','Haryana','Uttar Pradesh','Rajasthan','Maharashtra','Karnataka','Tamil Nadu','Gujarat','Punjab','Telangana','West Bengal','Madhya Pradesh'];
+const STATES = ['Delhi','Haryana','Rajasthan'];
 const CITIES = {
   Delhi: ['New Delhi','Dwarka','Rohini','Saket','Lajpat Nagar'],
   Haryana: ['Gurugram','Faridabad','Sonipat','Panipat','Ambala'],
-  'Uttar Pradesh': ['Noida','Ghaziabad','Lucknow','Agra','Kanpur'],
-  Maharashtra: ['Mumbai','Pune','Nagpur','Thane','Nashik'],
-  Karnataka: ['Bengaluru','Mysuru','Hubli','Mangaluru','Belgaum'],
   Rajasthan: ['Jaipur','Jodhpur','Udaipur','Kota','Ajmer'],
-  Gujarat: ['Ahmedabad','Surat','Vadodara','Rajkot','Bhavnagar'],
-  'Tamil Nadu': ['Chennai','Coimbatore','Madurai','Trichy','Salem'],
-  Punjab: ['Chandigarh','Ludhiana','Amritsar','Jalandhar','Patiala'],
-  Telangana: ['Hyderabad','Warangal','Nizamabad','Khammam','Karimnagar'],
-  'West Bengal': ['Kolkata','Howrah','Asansol','Durgapur','Siliguri'],
-  'Madhya Pradesh': ['Bhopal','Indore','Jabalpur','Gwalior','Ujjain'],
+ 
 };
 const VEHICLE_TYPES = ['Diesel Generator','Construction Equipment','Fleet Vehicle','Industrial Boiler','Farm Machinery','Other'];
 const DELIVERY_PERSON = {
@@ -44,10 +32,8 @@ const STEPS = [
   { label: 'Payment', icon: '💳' },
 ];
 
-// ✅ ONLY CHANGE: fuelPrices prop add kiya — baaki sab same hai
 export default function OrderFlow({ navigate, fuelPrices }) {
-
-  // ✅ prop se aaya FUEL_PRICES use karo, fallback as safety
+  // Use passed fuelPrices or fallback to default
   const FUEL_PRICES = fuelPrices || { Diesel: 87.71, Petrol: 96.72 };
 
   const [step, setStep] = useState(0);
@@ -237,9 +223,9 @@ export default function OrderFlow({ navigate, fuelPrices }) {
 
       {qty >= FUEL_MIN[fuelType] && (
         <div className="of-price-box">
-          <div className="of-price-box__row"><span>{qty} × ₹{price} Including Charges</span><span>₹{subtotal.toFixed(2)} </span></div>
+          <div className="of-price-box__row"><span>{qty} × ₹{price} Incl Charges</span><span>₹{subtotal.toFixed(2)} </span></div>
           <div className="of-price-box__row"><span>Delivery fee</span><span style={{ color: deliveryFee === 0 ? '#16a34a' : undefined }}>{deliveryFee === 0 ? 'FREE' : `₹${deliveryFee}`}</span></div>
-          <div className="of-price-box__row"><span>18% Vat ( inc all taxes )</span><span>₹{gst}</span></div>
+          <div className="of-price-box__row"><span>18% GST</span><span>₹{gst}</span></div>
           <div className="of-price-box__total"><span>Estimated Total</span><strong>₹{total.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</strong></div>
         </div>
       )}

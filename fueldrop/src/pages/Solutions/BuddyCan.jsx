@@ -48,9 +48,9 @@ export function BuddyCan({ navigate }) {
     tagline="Compact, certified fuel canisters for small quantities and emergency use."
     img="https://images.pexels.com/photos/2284164/pexels-photo-2284164.jpeg"
     desc="Buddy Can is our portable fuel solution designed for smPESO & BIS
-    all businesses, generators, emergency backup and personal use. Each canister is PESO-certified, tamper-proof and delivered directly to your door — minimum order just 150 litres."
+    all businesses, generators, emergency backup and personal use. Each canister is PESO-certified, tamper-proof and delivered directly to your door — minimum order just 100 litres."
     features={[' certified canisters','Available in 5L, 20L, 50L sizes','Tamper-proof sealing system','Same-day delivery available','Cashless payment supported','Compatible with all diesel generators']}
-    specs={[{label:'Capacity',value:'5L / 20L / 50L'},{label:'Fuel Type',value:'HSD Diesel / Petrol'},{label:'Certification',value:'PESO Approved'},{label:'Material',value:'HDPE BIS Certified'},{label:'Min. Order',value:'150 Litres'},{label:'Delivery',value:'Same Day / Next Day'}]}
+    specs={[{label:'Capacity',value:'5L / 20L / 50L'},{label:'Fuel Type',value:'HSD Diesel / Petrol'},{label:'Certification',value:'PESO Approved'},{label:'Material',value:'HDPE BIS Certified'},{label:'Min. Order',value:'100 Litres'},{label:'Delivery',value:'Same Day / Next Day'}]}
   />;
 }
 
@@ -61,7 +61,7 @@ export function SmartTank({ navigate }) {
     img="https://images.pexels.com/photos/10096863/pexels-photo-10096863.jpeg"
     desc="OnCallFuel Smart Tank is an IoT-enabled fuel storage unit installed at your premises. Connected to our cloud platform, it gives you real-time visibility of fuel levels, automatic low-level alerts, tamper detection and seamless auto-refill scheduling — all from your smartphone."
     features={['Real-time fuel level monitoring','Automatic low-level alerts','Tamper & theft detection','Cloud dashboard & mobile app','Auto-refill scheduling','Detailed consumption analytics']}
-    specs={[{label:'Capacity',value:'500L – 5000L'},{label:'Connectivity',value:'4G / Wi-Fi'},{label:'Sensor Accuracy',value:'±0.5%'},{label:'Power',value:'Solar / AC Adapter'},{label:'Warranty',value:'2 Years'},{label:'Installation',value:'Free within service area'}]}
+    specs={[{label:'Capacity',value:'500L – 1000L'},{label:'Connectivity',value:'5G / Wi-Fi'},{label:'Sensor Accuracy',value:'±0.5%'},{label:'Power',value:'Solar / AC Adapter'},{label:'Warranty',value:'2 Years'},{label:'Installation',value:'Free within service area'}]}
   />;
 }
 

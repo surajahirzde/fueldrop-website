@@ -52,30 +52,7 @@ export default function Careers({ navigate }) {
           )}
         </div>
       </section>
-      <section className="fdc-perks fd-section fd-section-light">
-        <div className="fd-container">
-          <div className="fdc-section-header">
-            <span className="fdc-eyebrow">Why OnCallFuel</span>
-            <h2>Perks & <span className="fdc-green">Benefits</span></h2>
-          </div>
-          <div className="fdc-perks-grid">
-            {[
-              { icon: '💰', title: 'Competitive Pay', desc: 'Market-leading salaries with performance bonuses.' },
-              { icon: '🏥', title: 'Health Insurance', desc: 'Comprehensive health coverage for you and family.' },
-              { icon: '🎓', title: 'Learning Budget', desc: '₹50,000 annual budget for courses and conferences.' },
-              { icon: '🏠', title: 'Remote Friendly', desc: 'Flexible work-from-home policies for eligible roles.' },
-              { icon: '🚗', title: 'Fuel Benefits', desc: 'Free fuel delivery subscription for all employees.' },
-              { icon: '🎉', title: 'Fun Culture', desc: 'Regular team events, celebrations and off-sites.' },
-            ].map((p, i) => (
-              <div key={i} className="fdc-perk-card">
-                <div className="fdc-perk-icon">{p.icon}</div>
-                <h3>{p.title}</h3>
-                <p>{p.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+     
     </div>
   );
 }

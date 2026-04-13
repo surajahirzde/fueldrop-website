@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './Home.css';
-import FuelPriceWidget from '../Home/Fuelpricewidget'; // ← only addition
+import FuelPriceWidget from './Fuelpricewidget';
 
 const SLIDES = [
   {
@@ -68,7 +68,7 @@ const CLIENTS = [
 
 const TESTIMONIALS = [
   {
-    name: 'Aman Transport Services, Gurugram',
+    name: 'Aman Transport Services',
     text: 'OnCallFuel team is doing excellent work. As soon as we place an order, we get the delivery in 4 hours. Highly recommended!',
   },
   {
@@ -83,11 +83,39 @@ const TESTIMONIALS = [
 
 export default function Home({ navigate }) {
   const [slide, setSlide] = useState(0);
+  
+  // State for real prices from API
+  const [realPrices, setRealPrices] = useState({
+    diesel: null,
+    petrol: null, 
+    loading: true
+  });
+
+  // ✅ Handle price updates from widget
+  const handlePriceUpdate = useCallback((prices) => {
+    if (prices && prices.diesel && prices.petrol) {
+      setRealPrices({
+        diesel: prices.diesel,
+        petrol: prices.petrol,
+        loading: false
+      });
+    }
+  }, []);
 
   useEffect(() => {
     const t = setInterval(() => setSlide(s => (s + 1) % SLIDES.length), 5000);
     return () => clearInterval(t);
   }, []);
+
+  // ✅ Function to navigate to order with prices
+  const goToOrderWithPrices = () => {
+    navigate('order', {
+      fuelPrices: {
+        Diesel: realPrices.diesel,
+        Petrol: realPrices.petrol
+      }
+    });
+  };
 
   return (
     <div className="fdh-home">
@@ -106,7 +134,7 @@ export default function Home({ navigate }) {
             {SLIDES[slide].title} <span className="fdh-green">{SLIDES[slide].highlight}</span>
           </h1>
           <div className="fdh-hero-btns">
-            <button className="fdh-btn-primary" onClick={() => navigate('order')}>
+            <button className="fdh-btn-primary" onClick={goToOrderWithPrices}>
               <i className="fa fa-bolt"></i> Fuel Up Now
             </button>
             <button className="fdh-btn-outline" onClick={() => navigate('solutions')}>
@@ -133,7 +161,7 @@ export default function Home({ navigate }) {
         </div>
       </section>
 
-      {/* ─── What We Deliver  ─── ONLY THIS SECTION CHANGED ─── */}
+      {/* ─── What We Deliver ─── */}
       <section className="fdh-fuels fd-section">
         <div className="fd-container">
           <div className="fdh-section-header">
@@ -142,30 +170,41 @@ export default function Home({ navigate }) {
             <p>From diesel to petrol— OnCallFuel is your single source for all energy needs, delivered safely and on time.</p>
           </div>
 
-          {/* NEW: two-col layout — fuel cards left, price widget right */}
+          {/* two-col layout */}
           <div className="fdh-fuels-layout">
             <div className="fdh-fuel-grid">
-              {[
-                { icon: '🛢️', label: 'Diesel', price: '₹87.71/L', color: '#16a34a' },
-                { icon: '⛽', label: 'Petrol', price: '₹96.72/L', color: '#f97316' },
-              ].map((f, i) => (
-                <button key={i} className="fdh-fuel-card" onClick={() => navigate('order')}>
-                  <div className="fdh-fuel-icon" style={{ background: f.color + '18', color: f.color }}>{f.icon}</div>
-                  <h3>{f.label}</h3>
-                  <p className="fdh-fuel-price">From <strong style={{ color: f.color }}>{f.price}</strong></p>
-                  <span className="fdh-fuel-cta">Order Now →</span>
-                </button>
-              ))}
+              {/* Diesel Card */}
+              <button className="fdh-fuel-card" onClick={goToOrderWithPrices}>
+                <div className="fdh-fuel-icon" style={{ background: '#16a34a18', color: '#16a34a' }}>🛢️</div>
+                <h3>Diesel</h3>
+                <p className="fdh-fuel-price">
+                  From <strong style={{ color: '#16a34a' }}>
+                    {realPrices.loading ? 'Loading...' : `₹${realPrices.diesel.toFixed(2)}`}/L
+                  </strong>
+                </p>
+                <span className="fdh-fuel-cta">Order Now →</span>
+              </button>
+              
+              {/* Petrol Card */}
+              <button className="fdh-fuel-card" onClick={goToOrderWithPrices}>
+                <div className="fdh-fuel-icon" style={{ background: '#f9731618', color: '#f97316' }}>⛽</div>
+                <h3>Petrol</h3>
+                <p className="fdh-fuel-price">
+                  From <strong style={{ color: '#f97316' }}>
+                    {realPrices.loading ? 'Loading...' : `₹${realPrices.petrol.toFixed(2)}`}/L
+                  </strong>
+                </p>
+                <span className="fdh-fuel-cta">Order Now →</span>
+              </button>
             </div>
 
-            {/* Price widget — right side */}
+            {/* Price widget */}
             <div className="fdh-price-widget-wrap">
-              <FuelPriceWidget />
+              <FuelPriceWidget onPriceUpdate={handlePriceUpdate} />
             </div>
           </div>
         </div>
       </section>
-      {/* ─── END CHANGED SECTION ─── */}
 
       {/* Solutions */}
       <section className="fdh-solutions fd-section fd-section-light">
@@ -303,8 +342,8 @@ export default function Home({ navigate }) {
       <section className="fdh-cta-banner">
         <div className="fd-container fdh-cta-inner">
           <h2>Ready to Order <span className="fdh-green">Fuel Now?</span></h2>
-          <p>Minimum 150 litres. Delivered to your door within hours.</p>
-          <button className="fdh-btn-primary fdh-btn-large" onClick={() => navigate('order')}>
+          <p>Minimum 100 litres. Delivered to your door within hours.</p>
+          <button className="fdh-btn-primary fdh-btn-large" onClick={goToOrderWithPrices}>
             <i className="fa fa-bolt"></i> Book Fuel Now
           </button>
         </div>
