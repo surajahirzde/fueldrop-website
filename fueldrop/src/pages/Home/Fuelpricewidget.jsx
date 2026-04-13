@@ -8,35 +8,56 @@ const CORS_PROXIES = [
 ];
 
 const CITIES = [
-  { label: 'Delhi',     slug: 'new-delhi'  },
-  { label: 'Faridabad', slug: 'faridabad'  },
-  { label: 'Gurugram',  slug: 'gurgaon'    },
-  { label: 'Jaipur',    slug: 'jaipur'     },
+  { label: 'Delhi',     slug: 'new-delhi' },
+  { label: 'Faridabad', slug: 'faridabad' },
+  { label: 'Gurugram',  slug: 'gurgaon'   },
+  { label: 'Jaipur',    slug: 'jaipur'    },
 ];
 
 const FUELS = [
-  { key: 'Petrol', icon: '⛽', color: '#f97316', bg: '#fff7ed' },
-  { key: 'Diesel', icon: '🛢️', color: '#16a34a', bg: '#f0fdf4' },
+  { key: 'Petrol',  icon: '⛽', color: '#f97316', bg: '#fff7ed' },
+  { key: 'Diesel',  icon: '🛢️', color: '#16a34a', bg: '#f0fdf4' },
 ];
 
-const CACHE     = {};
+const CACHE = {};
 const CACHE_TTL = 60 * 60 * 1000;
 
+/* ================= SAFE FETCH (LOCAL + NETLIFY) ================= */
 async function fetchHtml(targetUrl) {
   for (const buildProxy of CORS_PROXIES) {
     try {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 9000);
+
       const res = await fetch(buildProxy(targetUrl), {
-        signal: AbortSignal.timeout(8000),
+        method: 'GET',
+        mode: 'cors',
+        headers: { Accept: 'text/html,application/xhtml+xml' },
+        signal: controller.signal,
       });
-      if (res.ok) {
-        const text = await res.text();
-        if (text && text.length > 200) return text;
+
+      clearTimeout(timer);
+      if (!res.ok) continue;
+
+      let text = '';
+
+      // allorigins JSON fallback (Netlify safe)
+      if (res.headers.get('content-type')?.includes('application/json')) {
+        const json = await res.json();
+        text = json.contents || '';
+      } else {
+        text = await res.text();
       }
-    } catch { /* try next proxy */ }
+
+      if (text && text.length > 500) return text;
+    } catch {
+      // try next proxy
+    }
   }
-  throw new Error('All proxies failed');
+  throw new Error('All proxies failed (CORS blocked)');
 }
 
+/* ================= PRICE PARSING ================= */
 function extractPrice(html) {
   const patterns = [
     /"price"\s*:\s*"?([\d.]+)"?/,
@@ -45,105 +66,116 @@ function extractPrice(html) {
     /today[_-]?price[^>]*>([\d.]+)/i,
     /today.*?(?:is|:)\s*(?:rs\.?|₹)\s*([\d.]+)/i,
     /(?:rs\.?|₹)\s*([\d.]+)\s*(?:per|\/)\s*li/i,
-    /(?:rs\.?|₹)\s*(9[0-9]\.\d{2}|8[0-9]\.\d{2}|1[0-2][0-9]\.\d{2})/i,
-    /\b(9[4-9]\.\d{2}|8[5-9]\.\d{2}|10[0-9]\.\d{2}|1[01][0-9]\.\d{2})\b/,
+    /\b(9[0-9]\.\d{2}|8[0-9]\.\d{2}|1[0-2][0-9]\.\d{2})\b/,
   ];
 
   const chunk = html.slice(0, 15000);
   for (const re of patterns) {
     const m = chunk.match(re);
     if (m) {
-      const val = parseFloat(m[1]);
-      if (val >= 80 && val <= 130) return val;
+      const v = parseFloat(m[1]);
+      if (v >= 80 && v <= 130) return v;
     }
   }
 
   const all = [...html.matchAll(/\b(\d{2,3}\.\d{2})\b/g)]
     .map(m => parseFloat(m[1]))
     .filter(n => n >= 82 && n <= 130);
-  if (all.length) return all[0];
 
-  return null;
+  return all.length ? all[0] : null;
 }
 
 function extractYesterday(html) {
   const m =
-    html.match(/yesterday[^₹₹Rs]*(?:rs\.?|₹)\s*([\d.]+)/i) ||
-    html.match(/previous[^₹Rs]*(?:rs\.?|₹)\s*([\d.]+)/i)   ||
-    html.match(/(?:rs\.?|₹)\s*([\d.]+)[^<]*?<\/td>[^<]*?<td[^>]*>[^<]*?yesterday/i);
+    html.match(/yesterday[^₹Rs]*(?:rs\.?|₹)\s*([\d.]+)/i) ||
+    html.match(/previous[^₹Rs]*(?:rs\.?|₹)\s*([\d.]+)/i);
+
   if (m) {
-    const val = parseFloat(m[1]);
-    if (val >= 80 && val <= 130) return val;
+    const v = parseFloat(m[1]);
+    if (v >= 80 && v <= 130) return v;
   }
   return null;
 }
 
-async function fetchCityPrices(cityObj) {
+/* ================= FETCH CITY PRICES ================= */
+async function fetchCityPrices(city) {
   const now = Date.now();
-  const key = cityObj.label.toLowerCase();
+  const key = city.label.toLowerCase();
 
-  if (CACHE[key] && now - CACHE[key].ts < CACHE_TTL) return CACHE[key].data;
+  if (CACHE[key] && now - CACHE[key].ts < CACHE_TTL) {
+    return CACHE[key].data;
+  }
 
   const base = 'https://www.goodreturns.in';
+
   const [petrolHtml, dieselHtml] = await Promise.all([
-    fetchHtml(`${base}/petrol-price-in-${cityObj.slug}.html`),
-    fetchHtml(`${base}/diesel-price-in-${cityObj.slug}.html`),
+    fetchHtml(`${base}/petrol-price-in-${city.slug}.html`),
+    fetchHtml(`${base}/diesel-price-in-${city.slug}.html`),
   ]);
 
-  const petrol  = extractPrice(petrolHtml);
-  const diesel  = extractPrice(dieselHtml);
+  const petrol = extractPrice(petrolHtml);
+  const diesel = extractPrice(dieselHtml);
 
-  if (!petrol || !diesel)
-    throw new Error(`Could not parse prices. Source page may have changed.`);
+  if (!petrol || !diesel) {
+    throw new Error('Could not parse prices');
+  }
 
-  const petrolYest = extractYesterday(petrolHtml);
-  const dieselYest = extractYesterday(dieselHtml);
+  const petrolY = extractYesterday(petrolHtml);
+  const dieselY = extractYesterday(dieselHtml);
 
   const data = {
     petrol,
     diesel,
-    petrolChange : petrolYest ? parseFloat((petrol - petrolYest).toFixed(2)) : 0,
-    dieselChange : dieselYest ? parseFloat((diesel - dieselYest).toFixed(2)) : 0,
-    date         : new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }),
+    petrolChange: petrolY ? +(petrol - petrolY).toFixed(2) : 0,
+    dieselChange: dieselY ? +(diesel - dieselY).toFixed(2) : 0,
+    date: new Date().toLocaleDateString('en-IN', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+    }),
   };
 
   CACHE[key] = { data, ts: now };
   return data;
 }
 
+/* ================= UI HELPERS ================= */
 function trend(change) {
-  if (change > 0.005)  return { color: '#ef4444', arrow: '↑', label: `+₹${change.toFixed(2)}` };
+  if (change > 0.005) return { color: '#ef4444', arrow: '↑', label: `+₹${change.toFixed(2)}` };
   if (change < -0.005) return { color: '#16a34a', arrow: '↓', label: `-₹${Math.abs(change).toFixed(2)}` };
   return { color: '#6b7280', arrow: '→', label: 'No change' };
 }
 
+/* ================= COMPONENT ================= */
 export default function FuelPriceWidget({ onPriceUpdate }) {
-  const [city, setCity]       = useState(CITIES[0]);
-  const [data, setData]       = useState(null);
+  const [city, setCity] = useState(CITIES[0]);
+  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError]     = useState(null);
-  const hasSentToParent = useRef(false);
+  const [error, setError] = useState(null);
+  const sentRef = useRef(false);
 
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
     setError(null);
-    setData(null);
-    hasSentToParent.current = false;
+    sentRef.current = false;
 
     fetchCityPrices(city)
       .then(d => {
-        if (!cancelled) {
-          setData(d);
-          setLoading(false);
-          if (onPriceUpdate && !hasSentToParent.current) {
-            hasSentToParent.current = true;
-            onPriceUpdate({ diesel: d.diesel, petrol: d.petrol });
-          }
+        if (cancelled) return;
+        setData(d);
+        setLoading(false);
+
+        if (onPriceUpdate && !sentRef.current) {
+          sentRef.current = true;
+          onPriceUpdate({ petrol: d.petrol, diesel: d.diesel });
         }
       })
       .catch(e => {
-        if (!cancelled) { setError(e.message); setLoading(false); }
+        if (!cancelled) {
+          setError(e.message);
+          setLoading(false);
+        }
       });
 
     return () => { cancelled = true; };
@@ -152,11 +184,7 @@ export default function FuelPriceWidget({ onPriceUpdate }) {
   return (
     <div className="fpw-root">
       <div className="fpw-header">
-        <div className="fpw-header-left">
-          <span className="fpw-live-dot" />
-          <span className="fpw-title">Live Fuel Prices</span>
-          {data && <span className="fpw-updated">🟢 Live · {data.date}</span>}
-        </div>
+        <span className="fpw-title">Live Fuel Prices</span>
         <select
           className="fpw-city-select"
           value={city.label}
@@ -167,56 +195,26 @@ export default function FuelPriceWidget({ onPriceUpdate }) {
       </div>
 
       <div className="fpw-body">
-        {loading && (
-          <div className="fpw-loading">
-            <span className="fpw-spinner" />
-            <span>Fetching live prices…</span>
-          </div>
-        )}
-
-        {!loading && error && (
-          <div className="fpw-loading" style={{ flexDirection: 'column', alignItems: 'flex-start', padding: '14px 20px', gap: 5 }}>
-            <strong style={{ color: '#ef4444', fontSize: 14 }}>⚠️ Could not load prices</strong>
-            <span style={{ fontSize: 12, color: '#9ca3af', lineHeight: 1.5 }}>{error}</span>
-          </div>
-        )}
+        {loading && <div className="fpw-loading">Fetching live prices…</div>}
+        {error && !loading && <div className="fpw-loading">⚠️ {error}</div>}
 
         {!loading && !error && data && FUELS.map(f => {
-          const price  = f.key === 'Petrol' ? data.petrol  : data.diesel;
+          const price = f.key === 'Petrol' ? data.petrol : data.diesel;
           const change = f.key === 'Petrol' ? data.petrolChange : data.dieselChange;
-          const t      = trend(change);
-          const prev   = (price - change).toFixed(2);
+          const t = trend(change);
 
           return (
-            <div key={f.key} className="fpw-row" style={{ '--fc': f.color, '--fb': f.bg }}>
-              <div className="fpw-row-left">
-                <span className="fpw-row-icon">{f.icon}</span>
-                <span className="fpw-row-name">{f.key}</span>
-              </div>
-              <div className="fpw-today">
-                <span className="fpw-today-label">Today</span>
-                <span className="fpw-today-price">₹{price.toFixed(2)}</span>
-                <span className="fpw-today-unit">/ litre</span>
-              </div>
-              <div className="fpw-divider" />
-              <div className="fpw-past">
-                <span className="fpw-past-label">Yesterday</span>
-                <span className="fpw-past-price">₹{prev}</span>
-              </div>
-              <div className="fpw-badge" style={{ background: t.color + '18', color: t.color }}>
-                <span className="fpw-badge-arrow">{t.arrow}</span>
-                <span className="fpw-badge-val">{t.label}</span>
-              </div>
+            <div key={f.key} className="fpw-row">
+              <span>{f.icon} {f.key}</span>
+              <strong>₹{price.toFixed(2)}</strong>
+              <span style={{ color: t.color }}>{t.arrow} {t.label}</span>
             </div>
           );
         })}
       </div>
 
       <div className="fpw-footer">
-        {data
-          ? <span>📍 <strong>{city.label}</strong> · Source: goodreturns.in · Incl. VAT &amp; local levies</span>
-          : !loading && <span style={{ color: '#9ca3af', fontSize: 12 }}>Retrying…</span>
-        }
+        {data && <span>📍 {city.label} · Source: goodreturns.in</span>}
       </div>
     </div>
   );
