@@ -91,6 +91,9 @@ export default function Home({ navigate }) {
     loading: true
   });
 
+  // State to track if location permission was already asked
+  const [locationAsked, setLocationAsked] = useState(false);
+
   // ✅ Handle price updates from widget
   const handlePriceUpdate = useCallback((prices) => {
     if (prices && prices.diesel && prices.petrol) {
@@ -102,6 +105,42 @@ export default function Home({ navigate }) {
     }
   }, []);
 
+  // ✅ Location permission - runs only ONCE when component mounts
+  useEffect(() => {
+    // Check if we've already asked for location in this session
+    const hasAskedForLocation = sessionStorage.getItem('locationAsked');
+    
+    if (!hasAskedForLocation && navigator.geolocation) {
+      // Mark that we've asked
+      sessionStorage.setItem('locationAsked', 'true');
+      setLocationAsked(true);
+      
+      // Ask for location permission
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          console.log("Latitude:", position.coords.latitude);
+          console.log("Longitude:", position.coords.longitude);
+          // You can store these in state if needed
+          sessionStorage.setItem('userLat', position.coords.latitude);
+          sessionStorage.setItem('userLng', position.coords.longitude);
+        },
+        (error) => {
+          console.log("Location Error:", error.message);
+          // User denied or error occurred
+          sessionStorage.setItem('locationDenied', 'true');
+        }
+      );
+    } else if (hasAskedForLocation) {
+      // Already asked in this session, just log if we have stored coordinates
+      const savedLat = sessionStorage.getItem('userLat');
+      const savedLng = sessionStorage.getItem('userLng');
+      if (savedLat && savedLng) {
+        console.log("Using saved location:", savedLat, savedLng);
+      }
+    }
+  }, []); // Empty dependency array = runs only once when component mounts
+
+  // Auto slide effect
   useEffect(() => {
     const t = setInterval(() => setSlide(s => (s + 1) % SLIDES.length), 5000);
     return () => clearInterval(t);
