@@ -143,10 +143,10 @@ const SECTIONS = [
     emoji: '©️',
     title: 'Intellectual Property',
     points: [
-      'All content on OnCallFuel — text, graphics, logos, software, and service names — is the exclusive property of Chagans Technologies Limited.',
+      'All content on OnCallFuel — text, graphics, logos, software, and service names — is the exclusive property of OnCallFuel.',
       'You are granted a limited, non-exclusive, non-transferable, revocable licence to access and use the platform for personal or internal business purposes only.',
       'You may not reproduce, distribute, modify, reverse-engineer, or commercially exploit any content without prior written consent.',
-      'Our name, logo, and product names are trademarks of Chagans Technologies Limited. No licence is granted to use them.',
+      'Our name, logo, and product names are trademarks of OnCallFuel. No licence is granted to use them.',
     ],
   },
   {
@@ -275,11 +275,7 @@ export default function TermsConditions({ navigate }) {
         ))}
       </div>
 
-      {/* ── FOOTER ── */}
-      <footer className="tc-footer">
-        <p>⛽ OnCallFuel · Chagans Technologies Limited · SCO-4, Dayal Bagh, Sector-39, Faridabad – 121009, Haryana</p>
-        <p>Questions? <a href="mailto:legal@oncallfuel.in">legal@oncallfuel.in</a> · Response within 30 days</p>
-      </footer>
+   
 
     </div>
   );

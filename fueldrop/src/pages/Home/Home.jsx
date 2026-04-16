@@ -295,31 +295,7 @@ export default function Home({ navigate }) {
         </div>
       </section>
 
-      {/* Technology Approach */}
-      <section className="fdh-tech fd-section fd-section-dark">
-        <div className="fd-container">
-          <div className="fdh-section-header fdh-section-header-light">
-            <span className="fdh-eyebrow fdh-eyebrow-light">Our Approach</span>
-            <h2>Chagans Technologies limited <span className="fdh-green">Centred Approach</span></h2>
-            <p style={{ color: '#9ca3af' }}>Technology at the core, connecting convenience, cashless transactions, quality & safety.</p>
-          </div>
-          <div className="fdh-tech-grid">
-            {[
-              { icon: '💳', title: 'Cashless Transactions', desc: 'Secure & efficient cashless payments for every delivery.' },
-              { icon: '⚡', title: 'Convenience', desc: 'User-friendly app, streamlined logistics, your doorstep.' },
-              { icon: '✅', title: 'Quality & Quantity', desc: 'Precision dispensing with certified accuracy meters.' },
-              { icon: '🛡️', title: 'Safety', desc: 'Trained personnel, fire-safe vehicles, PESO compliant.' },
-              { icon: '📡', title: 'Technology', desc: 'IoT & Cloud enabling real-time data and faster decisions.' },
-            ].map((t, i) => (
-              <div key={i} className="fdh-tech-card">
-                <div className="fdh-tech-icon">{t.icon}</div>
-                <h3>{t.title}</h3>
-                <p>{t.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* Clients */}
       <section className="fdh-clients fd-section">

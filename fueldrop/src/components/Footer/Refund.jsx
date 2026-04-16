@@ -11,7 +11,7 @@ const SECTIONS = [
       'OnCallFuel provides emergency and scheduled doorstep fuel delivery (Petrol & Diesel) to businesses, and corporate entities across serviceable areas in India.',
       'This policy outlines all conditions under which refunds are issued and cancellations are accepted.',
       'By placing an order via www.oncallfuel.in, our mobile app, or phone, you agree to the terms in this policy.',
-      'Operated by Chagans Technologies Limited, SCO-4, Dayal Bagh, Sector-39, Faridabad – 121009, Haryana.',
+      'Operated by Oncallfuel, SCO-4, Dayal Bagh, Sector-39, Faridabad – 121009, Haryana.',
     ],
   },
   {
@@ -113,7 +113,7 @@ const SECTIONS = [
       { label: 'Refunds', value: 'refunds@oncallfuel.in' },
       { label: 'Grievances', value: 'grievance@oncallfuel.in' },
       { label: 'Support', value: 'support@oncallfuel.in' },
-      { label: 'Company', value: 'Chagans Technologies Limited' },
+      
       { label: 'Office', value: 'SCO-4, Dayal Bagh, Sector-39, Faridabad – 121009, HR' },
       { label: 'Jurisdiction', value: 'Courts of Faridabad, Haryana, India' },
     ],
@@ -254,11 +254,7 @@ export default function RefundPolicy({ navigate }) {
         ))}
       </div>
 
-      {/* ── FOOTER ── */}
-      <footer className="rp-footer">
-        <p>⛽ OnCallFuel · Chagans Technologies Limited · SCO-4, Dayal Bagh, Sector-39, Faridabad – 121009, Haryana</p>
-        <p>Refund queries: <a href="mailto:refunds@oncallfuel.in">refunds@oncallfuel.in</a> · Response within 3 business days</p>
-      </footer>
+ 
 
     </div>
   );

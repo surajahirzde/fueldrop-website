@@ -81,7 +81,7 @@ const SECTIONS = [
     details: [
       { label: 'Privacy / DPO', value: 'privacy@oncallfuel.in' },
       { label: 'Support', value: 'support@oncallfuel.in' },
-      { label: 'Company', value: 'Chagans Technologies Limited' },
+    
       { label: 'Office', value: 'SCO-4, Dayal Bagh, Sector-39, Faridabad – 121009, HR' },
       { label: 'Governing Law', value: 'IT Act 2000 · DPDPA 2023 · Indian Contract Act 1872' },
       { label: 'Jurisdiction', value: 'Courts of Faridabad, Haryana, India' },
@@ -159,15 +159,7 @@ export default function PrivacyPolicy({ navigate }) {
         ))}
       </div>
 
-      {/* ── FOOTER ── */}
-      <footer className="pp-footer">
-        <p>⛽ OnCallFuel · Chagans Technologies Limited · Faridabad, Haryana</p>
-        <p>
-          Questions?&nbsp;
-          <a href="mailto:privacy@oncallfuel.in">privacy@oncallfuel.in</a>
-          &nbsp;·&nbsp;Response within 30 days
-        </p>
-      </footer>
+ 
 
     </div>
   );
